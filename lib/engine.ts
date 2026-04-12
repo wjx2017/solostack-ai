@@ -1,4 +1,5 @@
 import toolsData from "@/data/tools.json";
+import affiliateData from "@/data/affiliate-tools.json";
 
 export interface Tool {
   id: string;
@@ -58,7 +59,10 @@ export function getBudgetRange(tier: "basic" | "recommended" | "premium"): [numb
 }
 
 export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
-  const tools = toolsData.tools as Tool[];
+  const allTools = toolsData.tools as Tool[];
+  const affiliateIds = new Set(affiliateData.affiliateToolIds);
+  // Only recommend tools that are in the affiliate whitelist
+  const tools = allTools.filter((t) => affiliateIds.has(t.id));
   const industry = answers.industry || "other";
   const budget = answers.budget || "50-100";
   const scenarios = answers.scenarios || ["writing"];
@@ -93,9 +97,9 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
   ];
 
   const tierNames = {
-    basic: { name: "基础版", nameEn: "Starter Stack", tag: "入门首选", highlighted: false },
-    recommended: { name: "推荐版", nameEn: "Growth Stack", tag: "⭐ 最受欢迎", highlighted: true },
-    premium: { name: "进阶版", nameEn: "Pro Stack", tag: "全能配置", highlighted: false },
+    basic: { name: "Starter Stack", nameEn: "Starter Stack", tag: "Great for Beginners", highlighted: false },
+    recommended: { name: "Growth Stack", nameEn: "Growth Stack", tag: "⭐ Most Popular", highlighted: true },
+    premium: { name: "Pro Stack", nameEn: "Pro Stack", tag: "Full-Power Setup", highlighted: false },
   };
 
   const stacks: StackTier[] = tiers.map((tier) => {
@@ -151,37 +155,37 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
 
 function getToolReason(tool: Tool, industry: string, scenarios: string[]): string {
   if (tool.bestFor.includes(industry)) {
-    return `专为${getIndustryLabel(industry)}场景优化`;
+    return `Optimized for ${getIndustryLabel(industry)}`;
   }
   const matchCat = tool.category.find((c) => scenarios.includes(c));
   if (matchCat) {
-    return `${getCategoryLabel(matchCat)}场景核心工具`;
+    return `Core tool for ${getCategoryLabel(matchCat)}`;
   }
-  return "高性价比补充工具";
+  return "Great value add-on";
 }
 
 function getIndustryLabel(v: string): string {
   const map: Record<string, string> = {
-    content: "内容创作",
-    ecommerce: "电商",
+    content: "content creation",
+    ecommerce: "e-commerce",
     saas: "SaaS",
-    freelance: "自由职业",
+    freelance: "freelance",
   };
   return map[v] || v;
 }
 
 function getCategoryLabel(v: string): string {
   const map: Record<string, string> = {
-    writing: "写作",
-    design: "设计",
-    video: "视频",
-    coding: "编程",
-    automation: "自动化",
-    "social-media": "社交媒体",
+    writing: "writing",
+    design: "design",
+    video: "video",
+    coding: "coding",
+    automation: "automation",
+    "social-media": "social media",
     seo: "SEO",
-    productivity: "效率",
-    research: "研究",
-    web: "建站",
+    productivity: "productivity",
+    research: "research",
+    web: "web development",
   };
   return map[v] || v;
 }

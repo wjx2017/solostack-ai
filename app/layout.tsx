@@ -7,10 +7,10 @@ import { Footer } from "@/components/shared/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Solostack AI — 5 分钟找到适合你的一人公司 AI 工具栈",
+  title: "Solostack AI — Find Your Perfect AI Tool Stack in 5 Minutes",
   description:
-    "通过智能问卷，为你推荐最匹配的 AI 工具组合。透明定价、清晰对比，让你少走弯路。",
-  keywords: "AI工具, 一人公司, 独立开发者, 工具栈, AI配置, solopreneur",
+    "Take a quick quiz to get personalized AI tool recommendations. Transparent pricing, clear comparisons, no wasted subscriptions.",
+  keywords: "AI tools, solopreneur, indie hacker, tool stack, AI configuration, AI software",
 };
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="zh-CN">
+    <html lang="en">
       <body className={inter.className}>
         <div className="min-h-screen flex flex-col">
           <Header />

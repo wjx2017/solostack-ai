@@ -66,10 +66,10 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-              只需 3 步，找到你的完美工具栈
+              Find Your Perfect Stack in 3 Steps
             </h2>
             <p className="mt-4 text-gray-500 text-lg">
-              简单、快速、零门槛
+              Simple, fast, zero learning curve
             </p>
           </div>
 
@@ -78,20 +78,20 @@ export default function HomePage() {
               {
                 step: "01",
                 icon: "📋",
-                title: "回答 5 个问题",
-                desc: "告诉我们你的行业、预算和需求，只需 2 分钟。",
+                title: "Answer 5 Questions",
+                desc: "Tell us your industry, budget, and needs — takes just 2 minutes.",
               },
               {
                 step: "02",
                 icon: "⚡",
-                title: "获取个性化推荐",
-                desc: "智能匹配 3 档方案，从入门到进阶任你选。",
+                title: "Get Personalized Picks",
+                desc: "Smart-matched across 3 tiers, from starter to pro.",
               },
               {
                 step: "03",
                 icon: "🚀",
-                title: "一键开始使用",
-                desc: "点击链接直接注册，成本透明，没有隐藏费用。",
+                title: "Start Building",
+                desc: "Click through to sign up. Transparent costs, no hidden fees.",
               },
             ].map((item) => (
               <div key={item.step} className="card p-6 sm:p-8 text-center group hover:-translate-y-1 transition-transform duration-300">
@@ -114,40 +114,40 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-              为什么选择 Solostack AI？
+              Why Solostack AI?
             </h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 icon: "🎯",
-                title: "精准匹配",
-                desc: "基于行业、预算、场景三维匹配，推荐最适合你的工具。",
+                title: "Precision Matching",
+                desc: "3D matching by industry, budget, and use case — find the tools that truly fit.",
               },
               {
                 icon: "💰",
-                title: "成本透明",
-                desc: "月度/年度成本一目了然，帮你做出最优预算决策。",
+                title: "Transparent Costs",
+                desc: "Monthly and annual pricing at a glance — make the best budget decisions.",
               },
               {
                 icon: "🔗",
-                title: "集成方案",
-                desc: "不仅推荐工具，还告诉你怎么组合使用，发挥最大效果。",
+                title: "Integration Guides",
+                desc: "Not just tools — we show you how to combine them for maximum impact.",
               },
               {
                 icon: "⏱️",
-                title: "节省时间",
-                desc: "省去数十小时的调研和试用，5 分钟获得专业建议。",
+                title: "Save Time",
+                desc: "Skip dozens of hours of research and trials — get expert picks in 5 minutes.",
               },
               {
                 icon: "📱",
-                title: "移动端友好",
-                desc: "随时随地配置你的工具栈，手机上也能轻松完成。",
+                title: "Mobile Friendly",
+                desc: "Configure your stack anywhere — works great on phones and tablets.",
               },
               {
                 icon: "🆓",
-                title: "完全免费",
-                desc: "工具栈配置完全免费，只为帮你找到最适合的方案。",
+                title: "Completely Free",
+                desc: "No sign-up, no paywall — our tool stack finder is free forever.",
               },
             ].map((f) => (
               <div key={f.title} className="card p-6">
@@ -166,16 +166,16 @@ export default function HomePage() {
       <section className="py-16 sm:py-20 bg-gradient-to-r from-primary-600 to-primary-700 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            准备好配置你的 AI 工具栈了吗？
+            Ready to Build Your AI Stack?
           </h2>
           <p className="text-lg text-primary-100 mb-8">
-            5 分钟问卷，找到最适合你的工具组合
+            A 5-minute quiz to find the perfect tool combo for your business
           </p>
           <a
             href="/quiz"
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary-700 font-semibold text-lg rounded-2xl hover:bg-gray-50 transition-colors shadow-lg"
           >
-            开始配置
+            Get Started
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>

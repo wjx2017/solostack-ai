@@ -116,7 +116,7 @@ export function QuizWizard() {
           <svg className="w-5 h-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
           </svg>
-          上一步
+          Back
         </button>
 
         {currentStep < questions.length - 1 ? (
@@ -125,7 +125,7 @@ export function QuizWizard() {
             className="btn-primary"
             disabled={!canProceed()}
           >
-            下一步
+            Next
             <svg className="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
@@ -136,7 +136,7 @@ export function QuizWizard() {
             className="btn-primary bg-accent-600 hover:bg-accent-700 shadow-accent-600/25"
             disabled={!canProceed()}
           >
-            查看我的工具栈
+            View My Stack
             <svg className="w-5 h-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>

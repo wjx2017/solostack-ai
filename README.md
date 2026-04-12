@@ -1,14 +1,14 @@
-# Solostack AI — 一人公司 AI 工具栈配置器
+# Solostack AI — AI Tool Stack Configurator for Solopreneurs
 
-5 分钟找到适合你的一人公司 AI 工具栈。
+Find your perfect AI tool stack in 5 minutes.
 
 ## Tech Stack
 
 - Next.js 14 (App Router)
 - Tailwind CSS
-- Zustand (状态管理)
+- Zustand (State Management)
 - TypeScript
-- Vercel (部署)
+- Vercel (Deployment)
 
 ## Getting Started
 

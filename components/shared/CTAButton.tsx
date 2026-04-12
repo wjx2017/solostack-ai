@@ -5,7 +5,7 @@ import { useQuizStore } from "@/lib/store";
 
 export function CTAButton({
   href = "/quiz",
-  children = "开始配置你的工具栈",
+  children = "Build Your AI Stack",
   size = "large",
 }: {
   href?: string;

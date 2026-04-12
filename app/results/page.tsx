@@ -24,7 +24,7 @@ export default function ResultsPage() {
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent mx-auto mb-4" />
-          <p className="text-gray-500">正在为你生成推荐方案...</p>
+          <p className="text-gray-500">Generating your personalized recommendations...</p>
         </div>
       </div>
     );
@@ -36,10 +36,10 @@ export default function ResultsPage() {
         {/* Header */}
         <div className="text-center mb-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
-            为你推荐以下工具栈方案
+            Your Recommended AI Stacks
           </h1>
           <p className="text-gray-500 text-lg">
-            根据你的行业和预算，我们精心搭配了 3 个方案
+            Based on your industry and budget, we've curated 3 tailored plans for you
           </p>
         </div>
 
@@ -65,7 +65,7 @@ export default function ResultsPage() {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
-            重新配置
+            Retake Quiz
           </button>
         </div>
       </div>

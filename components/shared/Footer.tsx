@@ -11,7 +11,7 @@ export function Footer() {
             <span className="font-semibold text-gray-700">Solostack AI</span>
           </div>
           <div className="text-sm text-gray-500 text-center">
-            © {year} Solostack AI. 一人公司 AI 工具栈配置器。
+            © {year} Solostack AI. AI Tool Stack Configurator for Solopreneurs.
           </div>
           <div className="flex items-center gap-6 text-sm text-gray-500">
             <span className="inline-flex items-center gap-1">
@@ -21,7 +21,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-4 pt-4 border-t border-gray-200 text-xs text-gray-400 text-center">
-          免责声明：本网站包含 Affiliate 链接，点击购买我们可能获得佣金，这不会增加您的成本。
+          Disclaimer: This site contains affiliate links. We may earn a commission when you purchase through our links, at no extra cost to you.
         </div>
       </div>
     </footer>

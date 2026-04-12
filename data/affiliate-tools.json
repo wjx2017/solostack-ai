@@ -1,0 +1,15 @@
+{
+  "_comment": "Affiliate whitelist — only these tool IDs will appear in recommendations. Add new tool IDs here after completing affiliate application.",
+  "affiliateToolIds": [
+    "chatgpt",
+    "notion-ai",
+    "canva-pro",
+    "midjourney",
+    "claude",
+    "make",
+    "elevenlabs",
+    "framer",
+    "perplexity",
+    "cursor"
+  ]
+}

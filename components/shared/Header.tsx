@@ -17,7 +17,7 @@ export function Header() {
             href="/quiz"
             className="btn-primary text-sm px-4 py-2"
           >
-            开始配置
+            Get Started
           </Link>
         </div>
       </div>

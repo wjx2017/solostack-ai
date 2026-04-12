@@ -10,7 +10,7 @@ export function ProgressBar() {
   return (
     <div className="w-full mb-8">
       <div className="flex items-center justify-between mb-2 text-sm text-gray-500">
-        <span>进度</span>
+        <span>Progress</span>
         <span className="font-medium text-gray-700">
           {currentStep + 1} / {total}
         </span>

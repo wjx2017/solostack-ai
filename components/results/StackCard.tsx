@@ -51,7 +51,7 @@ export function StackCard({ stack }: { stack: StackTier }) {
               stack.highlighted ? "text-primary-200" : "text-gray-500"
             }`}
           >
-            /月
+            /mo
           </span>
         </div>
       </div>
@@ -74,7 +74,7 @@ export function StackCard({ stack }: { stack: StackTier }) {
                     {tool.name}
                   </span>
                   <span className="text-sm font-medium text-gray-500">
-                    ${tool.pricing.monthly}/月
+                    ${tool.pricing.monthly}/mo
                   </span>
                 </div>
                 <p className="text-sm text-gray-500 mt-0.5">{tool.description}</p>
@@ -107,7 +107,7 @@ export function StackCard({ stack }: { stack: StackTier }) {
               stack.highlighted ? "" : "bg-primary-50 hover:bg-primary-600"
             }`}
           >
-            获取{stack.name}工具栈
+            Get {stack.name}
           </a>
         </div>
       </div>
