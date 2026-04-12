@@ -20,19 +20,16 @@ export function QuizWizard() {
   const { generateRecommendations } = require("@/lib/engine");
   
   // 追踪问卷开始（仅在第一步触发一次）
-  if (currentStep === 0) {
-    // 使用 useEffect 确保只在组件挂载时触发一次
-    const hasTrackedStart = typeof window !== 'undefined' 
-      ? sessionStorage.getItem('quiz_started_tracked') 
-      : false;
-    
-    if (!hasTrackedStart) {
-      plausible('quiz_started');
-      if (typeof window !== 'undefined') {
+  useEffect(() => {
+    if (currentStep === 0) {
+      const hasTrackedStart = sessionStorage.getItem('quiz_started_tracked');
+      
+      if (!hasTrackedStart) {
+        plausible('quiz_started');
         sessionStorage.setItem('quiz_started_tracked', 'true');
       }
     }
-  }
+  }, [currentStep, plausible]);
 
   const question = questions[currentStep];
   if (!question) return null;
