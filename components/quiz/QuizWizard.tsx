@@ -1,11 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import questionsData from "@/data/questions.json";
 import { useQuizStore } from "@/lib/store";
 
 const questions = questionsData.questions;
 
 export function QuizWizard() {
+  const router = useRouter();
   const currentStep = useQuizStore((s) => s.currentStep);
   const answers = useQuizStore((s) => s.answers);
   const setAnswer = useQuizStore((s) => s.setAnswer);
@@ -50,6 +52,7 @@ export function QuizWizard() {
   function handleSubmit() {
     const results = generateRecommendations(answers);
     setCompleted(results);
+    router.push("/results");
   }
 
   function canProceed() {

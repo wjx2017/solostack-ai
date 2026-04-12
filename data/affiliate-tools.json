@@ -1,15 +1,15 @@
 {
-  "_comment": "Affiliate whitelist — only these tool IDs will appear in recommendations. Add new tool IDs here after completing affiliate application.",
+  "_comment": "Affiliate whitelist — only these tool IDs will appear in recommendations. Source: 飞书表格 https://my.feishu.cn/sheets/Qs3ysSlb5hX4aNtuPCIcJPdjnwb",
   "affiliateToolIds": [
-    "chatgpt",
+    "jasper",
+    "grammarly",
     "notion-ai",
-    "canva-pro",
-    "midjourney",
-    "claude",
-    "make",
-    "elevenlabs",
-    "framer",
-    "perplexity",
-    "cursor"
+    "writesonic",
+    "pictory",
+    "murf",
+    "n8n",
+    "tubebuddy",
+    "surfer-seo",
+    "elevenlabs"
   ]
 }

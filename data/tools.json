@@ -1,17 +1,32 @@
 {
   "tools": [
     {
-      "id": "chatgpt",
-      "name": "ChatGPT Plus",
-      "description": "AI writing assistant with conversational interface — code, copy, and translation in one place",
-      "category": ["writing", "coding", "productivity"],
-      "icon": "💬",
+      "id": "jasper",
+      "name": "Jasper AI",
+      "description": "AI writing assistant for marketing — blog posts, ad copy, social media content at scale",
+      "category": ["writing", "content"],
+      "icon": "✍️",
       "pricing": {
-        "monthly": 20,
-        "annual": 240,
-        "freeTier": "GPT-4o mini free"
+        "monthly": 49,
+        "annual": 396,
+        "freeTier": "7-day free trial"
       },
-      "affiliateUrl": "https://chat.openai.com/?utm_source=solostack.ai",
+      "affiliateUrl": "https://www.jasper.ai/?utm_source=solostack.ai",
+      "bestFor": ["content", "saas", "ecommerce"],
+      "tier": "recommended"
+    },
+    {
+      "id": "grammarly",
+      "name": "Grammarly",
+      "description": "AI writing assistant — grammar, spelling, tone, and clarity checks for all your writing",
+      "category": ["writing", "productivity"],
+      "icon": "📝",
+      "pricing": {
+        "monthly": 12,
+        "annual": 84,
+        "freeTier": "Basic checks free"
+      },
+      "affiliateUrl": "https://www.grammarly.com/?utm_source=solostack.ai",
       "bestFor": ["content", "saas", "freelance", "ecommerce"],
       "tier": "basic"
     },
@@ -20,7 +35,7 @@
       "name": "Notion AI",
       "description": "All-in-one workspace with AI writing — notes, docs, and project management combined",
       "category": ["writing", "productivity"],
-      "icon": "📝",
+      "icon": "📋",
       "pricing": {
         "monthly": 10,
         "annual": 96,
@@ -31,64 +46,94 @@
       "tier": "basic"
     },
     {
-      "id": "canva-pro",
-      "name": "Canva Pro",
-      "description": "AI design tool — generate posters, social media graphics, and presentations in one click",
-      "category": ["design", "social-media"],
-      "icon": "🎨",
+      "id": "writesonic",
+      "name": "Writesonic",
+      "description": "AI writing tool — blog posts, product descriptions, ad copy with SEO optimization",
+      "category": ["writing", "seo"],
+      "icon": "🔥",
       "pricing": {
-        "monthly": 13,
-        "annual": 120,
-        "freeTier": "Basic features free"
+        "monthly": 19,
+        "annual": 156,
+        "freeTier": "10K words/month free"
       },
-      "affiliateUrl": "https://www.canva.com/?utm_source=solostack.ai",
+      "affiliateUrl": "https://writesonic.com/?utm_source=solostack.ai",
       "bestFor": ["content", "ecommerce", "freelance"],
       "tier": "basic"
     },
     {
-      "id": "midjourney",
-      "name": "Midjourney",
-      "description": "AI image generation — high-quality art, illustrations, and product visuals",
-      "category": ["design", "video"],
-      "icon": "🖼️",
+      "id": "pictory",
+      "name": "Pictory AI",
+      "description": "AI video creation — turn blog posts, scripts, and articles into engaging short videos",
+      "category": ["video", "content"],
+      "icon": "🎬",
       "pricing": {
-        "monthly": 30,
-        "annual": 288,
-        "freeTier": "None"
+        "monthly": 23,
+        "annual": 228,
+        "freeTier": "3 videos/month free"
       },
-      "affiliateUrl": "https://www.midjourney.com/?utm_source=solostack.ai",
+      "affiliateUrl": "https://pictory.ai/?utm_source=solostack.ai",
       "bestFor": ["content", "ecommerce"],
       "tier": "recommended"
     },
     {
-      "id": "claude",
-      "name": "Claude Pro",
-      "description": "Anthropic AI with strong long-context capabilities — ideal for deep writing and analysis",
-      "category": ["writing", "coding", "productivity"],
-      "icon": "🤖",
+      "id": "murf",
+      "name": "Murf AI",
+      "description": "AI voice generator — realistic text-to-speech with 120+ voices in 20+ languages",
+      "category": ["video", "content"],
+      "icon": "🎙️",
       "pricing": {
-        "monthly": 20,
-        "annual": 240,
-        "freeTier": "Claude Sonnet free"
+        "monthly": 19,
+        "annual": 156,
+        "freeTier": "10 min voice generation free"
       },
-      "affiliateUrl": "https://claude.ai/?utm_source=solostack.ai",
-      "bestFor": ["content", "saas", "freelance"],
+      "affiliateUrl": "https://murf.ai/?utm_source=solostack.ai",
+      "bestFor": ["content", "ecommerce"],
       "tier": "basic"
     },
     {
-      "id": "make",
-      "name": "Make (Integromat)",
-      "description": "Visual automation platform connecting 1,000+ apps — a cheaper Zapier alternative",
-      "category": ["automation"],
+      "id": "n8n",
+      "name": "n8n",
+      "description": "Workflow automation platform — connect 400+ apps with visual or code-based workflows",
+      "category": ["automation", "coding"],
       "icon": "⚡",
       "pricing": {
-        "monthly": 10,
-        "annual": 108,
-        "freeTier": "1,000 ops/month free"
+        "monthly": 24,
+        "annual": 240,
+        "freeTier": "Self-hosted free"
       },
-      "affiliateUrl": "https://www.make.com/?utm_source=solostack.ai",
+      "affiliateUrl": "https://n8n.io/?utm_source=solostack.ai",
       "bestFor": ["saas", "ecommerce", "freelance"],
       "tier": "basic"
+    },
+    {
+      "id": "tubebuddy",
+      "name": "TubeBuddy",
+      "description": "YouTube growth toolkit — keyword research, A/B testing, bulk processing, and SEO optimization",
+      "category": ["social-media", "seo"],
+      "icon": "📺",
+      "pricing": {
+        "monthly": 9,
+        "annual": 72,
+        "freeTier": "Free starter plan"
+      },
+      "affiliateUrl": "https://www.tubebuddy.com/?utm_source=solostack.ai",
+      "bestFor": ["content"],
+      "tier": "basic"
+    },
+    {
+      "id": "surfer-seo",
+      "name": "Surfer SEO",
+      "description": "AI-powered SEO optimization — content editor, SERP analyzer, and keyword research",
+      "category": ["seo", "content"],
+      "icon": "📈",
+      "pricing": {
+        "monthly": 89,
+        "annual": 708,
+        "freeTier": "None"
+      },
+      "affiliateUrl": "https://surferseo.com/?utm_source=solostack.ai",
+      "bestFor": ["content", "saas"],
+      "tier": "recommended"
     },
     {
       "id": "elevenlabs",
@@ -104,51 +149,6 @@
       "affiliateUrl": "https://elevenlabs.io/?utm_source=solostack.ai",
       "bestFor": ["content", "ecommerce"],
       "tier": "recommended"
-    },
-    {
-      "id": "framer",
-      "name": "Framer",
-      "description": "AI website builder — drag-and-drop design, launch in minutes",
-      "category": ["design", "web"],
-      "icon": "🌐",
-      "pricing": {
-        "monthly": 15,
-        "annual": 180,
-        "freeTier": "Free plan available"
-      },
-      "affiliateUrl": "https://www.framer.com/?utm_source=solostack.ai",
-      "bestFor": ["saas", "freelance", "ecommerce"],
-      "tier": "basic"
-    },
-    {
-      "id": "perplexity",
-      "name": "Perplexity Pro",
-      "description": "AI search engine with real-time web results and cited sources — perfect for market research",
-      "category": ["productivity", "research", "seo"],
-      "icon": "🔍",
-      "pricing": {
-        "monthly": 20,
-        "annual": 200,
-        "freeTier": "Free tier available"
-      },
-      "affiliateUrl": "https://www.perplexity.ai/?utm_source=solostack.ai",
-      "bestFor": ["content", "saas", "freelance", "ecommerce"],
-      "tier": "basic"
-    },
-    {
-      "id": "cursor",
-      "name": "Cursor",
-      "description": "AI-powered code editor — VS Code enhanced with autocomplete, refactoring, and debugging",
-      "category": ["coding"],
-      "icon": "💻",
-      "pricing": {
-        "monthly": 20,
-        "annual": 192,
-        "freeTier": "Free tier available"
-      },
-      "affiliateUrl": "https://www.cursor.com/?utm_source=solostack.ai",
-      "bestFor": ["saas", "freelance"],
-      "tier": "basic"
     }
   ]
 }
