@@ -1,0 +1,36 @@
+# robots.txt for Solostack AI
+# https://solostack.ai/robots.txt
+
+User-agent: *
+Allow: /
+
+# Disallow admin/private areas (if any)
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+
+# Allow all crawlers to access sitemap
+Sitemap: https://solostack.ai/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Google-specific rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing-specific rules
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
