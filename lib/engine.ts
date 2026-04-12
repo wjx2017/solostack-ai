@@ -86,11 +86,26 @@ function selectToolsWithinBudget(
   const selected: (Tool & { score: number })[] = [];
   let total = 0;
 
-  // Precompute: for k remaining slots, what's the minimum cost to fill them?
-  // Sort by price ascending to know the cheapest options
+  // Sort by price ascending to know the cheapest options.
   const sortedByPrice = [...scoredTools].sort((a, b) => a.pricing.monthly - b.pricing.monthly);
 
+  // Determine the maximum number of tools we can realistically fit in this budget.
+  // This prevents impossible targets (e.g. 5 tools in a $50 budget) from yielding an empty stack.
+  let affordableCount = 0;
+  let affordableTotal = 0;
+  for (const tool of sortedByPrice) {
+    if (affordableCount >= maxCount) break;
+    if (affordableTotal + tool.pricing.monthly > maxBudget) break;
+    affordableTotal += tool.pricing.monthly;
+    affordableCount += 1;
+  }
+
+  const targetCount = affordableCount;
+  if (targetCount === 0) return [];
+
   function minCostForKSlots(k: number, excludeIds: Set<string>): number {
+    if (k <= 0) return 0;
+
     let cost = 0;
     let count = 0;
     for (const t of sortedByPrice) {
@@ -100,15 +115,19 @@ function selectToolsWithinBudget(
         if (count >= k) break;
       }
     }
+
+    // Not enough tools left to fill the requested slots.
+    if (count < k) return Number.POSITIVE_INFINITY;
     return cost;
   }
 
-  for (let slot = 0; slot < maxCount; slot++) {
-    const remainingSlots = maxCount - slot - 1;
+  for (let slot = 0; slot < targetCount; slot++) {
+    const remainingSlots = targetCount - slot - 1;
     const selectedIds = new Set(selected.map((s) => s.id));
     const minCostRemaining = minCostForKSlots(remainingSlots, selectedIds);
 
-    // Find the best (highest score) tool that fits: price <= maxBudget - total - minCostRemaining
+    // Find the best (highest score) tool that fits while preserving room
+    // for the remaining minimum-viable tool set.
     const maxPriceForThisSlot = maxBudget - total - minCostRemaining;
 
     const affordable = scoredTools
@@ -116,13 +135,15 @@ function selectToolsWithinBudget(
         (t) =>
           !selectedIds.has(t.id) && t.pricing.monthly <= maxPriceForThisSlot
       )
-      .sort((a, b) => b.score - a.score);
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.pricing.monthly - b.pricing.monthly;
+      });
 
     if (affordable.length > 0) {
       selected.push(affordable[0]);
       total += affordable[0].pricing.monthly;
     } else {
-      // No affordable tool found for this slot — stop
       break;
     }
   }
@@ -260,7 +281,9 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
     };
   });
 
-  return stacks;
+  // Filter out empty stacks: when budget is too tight and no tools were selected,
+  // the stack would display "$0/mo" with no tools — a broken user experience.
+  return stacks.filter((s) => s.tools.length > 0 && s.monthlyTotal > 0);
 }
 
 function getToolReason(tool: Tool, industry: string, scenarios: string[]): string {

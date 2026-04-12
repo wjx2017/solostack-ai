@@ -76,24 +76,44 @@ export default function ResultsPage() {
             Your Recommended AI Stacks
           </h1>
           <p className="text-gray-500 text-lg">
-            Based on your industry and budget, we've curated {results.filter(s => s.tools.length > 0).length} tailored plan{results.filter(s => s.tools.length > 0).length !== 1 ? 's' : ''} for you
+            {results.length === 0
+              ? "No AI stacks match your current budget. Try increasing your budget to see recommendations."
+              : `Based on your industry and budget, we've curated ${results.length} tailored plan${results.length > 1 ? "s" : ""} for you`}
           </p>
         </div>
 
-        {/* Stack Cards — hide empty stacks (e.g. when budget is too low for Pro tier) */}
-        <div className={`grid gap-6 mb-12 ${
-          results.filter(s => s.tools.length > 0).length >= 3
-            ? "md:grid-cols-3"
-            : results.filter(s => s.tools.length > 0).length === 2
-            ? "md:grid-cols-2 max-w-4xl mx-auto"
-            : "max-w-lg mx-auto"
-        }`}>
-          {results
-            .filter((stack) => stack.tools.length > 0)
-            .map((stack, i) => (
+        {/* No results fallback */}
+        {results.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-5xl mb-4">🔍</div>
+            <p className="text-gray-500 text-lg mb-6">
+              We couldn't find AI tool combinations that fit your budget.
+              Try retaking the quiz with a higher budget range.
+            </p>
+            <button
+              onClick={() => {
+                reset();
+                router.push("/quiz");
+              }}
+              className="btn-primary"
+            >
+              Retake Quiz
+            </button>
+          </div>
+        )}
+
+        {/* Stack Cards */}
+        {results.length > 0 && (
+          <div className={`grid gap-6 mb-12 ${
+            results.length === 1 ? 'md:grid-cols-1 max-w-md mx-auto' :
+            results.length === 2 ? 'md:grid-cols-2 max-w-4xl mx-auto' :
+            'md:grid-cols-3'
+          }`}>
+            {results.map((stack, i) => (
               <StackCard key={i} stack={stack} />
             ))}
-        </div>
+          </div>
+        )}
 
         {/* Cost Calculator */}
         <CostCalculator stacks={results} />

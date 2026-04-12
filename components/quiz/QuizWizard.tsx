@@ -53,14 +53,9 @@ export function QuizWizard() {
       }
     } else {
       setAnswer(question.id as any, value);
-      // Auto-advance for single choice
-      setTimeout(() => {
-        if (currentStep < questions.length - 1) {
-          nextStep();
-        } else {
-          handleSubmit();
-        }
-      }, 300);
+      // Intentionally NOT calling nextStep() here.
+      // All questions require manual "Next" click (or "View My Stack" on the last question).
+      // No auto-advance on single-select — consistent UX across all question types.
     }
   }
 
