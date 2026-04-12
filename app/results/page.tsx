@@ -50,7 +50,7 @@ export default function ResultsPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "itemListElement": results?.map((stack, index) => ({
+            "itemListElement": results?.filter(s => s.tools.length > 0).map((stack, index) => ({
               "@type": "ListItem",
               "position": index + 1,
               "item": {
@@ -76,15 +76,23 @@ export default function ResultsPage() {
             Your Recommended AI Stacks
           </h1>
           <p className="text-gray-500 text-lg">
-            Based on your industry and budget, we've curated 3 tailored plans for you
+            Based on your industry and budget, we've curated {results.filter(s => s.tools.length > 0).length} tailored plan{results.filter(s => s.tools.length > 0).length !== 1 ? 's' : ''} for you
           </p>
         </div>
 
-        {/* Stack Cards */}
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          {results.map((stack, i) => (
-            <StackCard key={i} stack={stack} />
-          ))}
+        {/* Stack Cards — hide empty stacks (e.g. when budget is too low for Pro tier) */}
+        <div className={`grid gap-6 mb-12 ${
+          results.filter(s => s.tools.length > 0).length >= 3
+            ? "md:grid-cols-3"
+            : results.filter(s => s.tools.length > 0).length === 2
+            ? "md:grid-cols-2 max-w-4xl mx-auto"
+            : "max-w-lg mx-auto"
+        }`}>
+          {results
+            .filter((stack) => stack.tools.length > 0)
+            .map((stack, i) => (
+              <StackCard key={i} stack={stack} />
+            ))}
         </div>
 
         {/* Cost Calculator */}
