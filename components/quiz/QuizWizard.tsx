@@ -21,7 +21,7 @@ export function QuizWizard() {
   
   // 追踪问卷开始（仅在第一步触发一次）
   useEffect(() => {
-    if (currentStep === 0) {
+    if (currentStep === 0 && typeof window !== 'undefined') {
       const hasTrackedStart = sessionStorage.getItem('quiz_started_tracked');
       
       if (!hasTrackedStart) {
