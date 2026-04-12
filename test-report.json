@@ -1,0 +1,78 @@
+{
+  "testSummary": {
+    "total": 4496,
+    "passed": 2258,
+    "failed": 2238,
+    "passRate": 50.22,
+    "timestamp": "2026-04-12T20:45:00+08:00"
+  },
+  "failureCategories": {
+    "budgetExceeded": {
+      "count": 1850,
+      "description": "推荐价格超出用户预算限制",
+      "rules": [
+        "Starter 总价 ≤ 60% 用户预算",
+        "Recommended 总价 ≤ 80% 用户预算",
+        "Pro 总价 ≤ 100% 用户预算"
+      ]
+    },
+    "technicalUserMismatch": {
+      "count": 258,
+      "description": "technical 用户未被推荐 technical 工具（coding/automation）",
+      "rule": "technical 用户应优先推荐 technical 工具"
+    },
+    "noCodeUserMismatch": {
+      "count": 130,
+      "description": "no-code 用户被推荐了 coding 工具",
+      "rule": "no-code 用户不应推荐 technical 工具"
+    }
+  },
+  "sampleFailures": [
+    {
+      "industry": "content",
+      "budget": "<50",
+      "scenarios": ["writing"],
+      "skillLevel": "technical",
+      "goals": ["save-time"],
+      "failures": [
+        "Starter stack costs $36/month, exceeds 60% of budget ($30)",
+        "Recommended stack costs $65/month, exceeds 80% of budget ($40)",
+        "Pro stack costs $84/month, exceeds 100% of budget ($50)",
+        "Technical user should be recommended technical tools (coding/automation), got: Grammarly, Notion AI, Writesonic, Murf AI"
+      ]
+    },
+    {
+      "industry": "other",
+      "budget": "<50",
+      "scenarios": ["writing"],
+      "skillLevel": "no-code",
+      "goals": ["save-time"],
+      "failures": [
+        "Starter stack costs $36/month, exceeds 60% of budget ($30)",
+        "Recommended stack costs $65/month, exceeds 80% of budget ($40)",
+        "Pro stack costs $84/month, exceeds 100% of budget ($50)",
+        "No-code user should NOT be recommended coding tools, got: n8n, Grammarly"
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "priority": "P0",
+      "issue": "预算限制未正确实施",
+      "fix": "修改 engine.ts 中的工具选择逻辑，确保每个 tier 的价格严格符合用户预算百分比限制",
+      "affectedScenarios": "所有预算 <50 的场景"
+    },
+    {
+      "priority": "P1",
+      "issue": "technical 用户未优先推荐 technical 工具",
+      "fix": "在评分系统中增加 skillLevel 权重，technical 用户对 coding/automation 工具给予额外加分",
+      "affectedScenarios": "所有 technical 用户场景"
+    },
+    {
+      "priority": "P1",
+      "issue": "no-code 用户被推荐 coding 工具",
+      "fix": "在工具过滤阶段排除 no-code 用户的 coding 类别工具，或给予极大负分",
+      "affectedScenarios": "所有 no-code 用户场景，特别是包含 automation 场景的组合"
+    }
+  ]
+}
