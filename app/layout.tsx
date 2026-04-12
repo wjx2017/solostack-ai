@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+// import PlausibleProvider from "next-plausible"; // Temporarily disabled for build
 import "./globals.css";
 import { Header } from "@/components/shared/Header";
 import { Footer } from "@/components/shared/Footer";
@@ -42,7 +43,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  canonical: SITE_URL,
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -97,11 +97,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+        {/* <PlausibleProvider domain="solostack.ai"> */}
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        {/* </PlausibleProvider> */}
       </body>
     </html>
   );

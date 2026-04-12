@@ -1,8 +1,20 @@
 "use client";
 
+import { usePlausible } from "next-plausible";
 import { StackTier } from "@/lib/engine";
 
 export function StackCard({ stack }: { stack: StackTier }) {
+  const plausible = usePlausible();
+  
+  function handleAffiliateClick(toolName: string, toolCategory?: string) {
+    plausible('affiliate_link_clicked', {
+      props: {
+        tool_name: toolName,
+        tool_category: toolCategory?.[0] || 'other',
+        stack_tier: stack.nameEn,
+      }
+    });
+  }
   return (
     <div
       className={`card overflow-hidden ${
@@ -65,6 +77,7 @@ export function StackCard({ stack }: { stack: StackTier }) {
               href={tool.affiliateUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => handleAffiliateClick(tool.name, tool.category?.[0])}
               className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
             >
               <span className="text-2xl mt-0.5">{tool.icon}</span>
@@ -103,6 +116,7 @@ export function StackCard({ stack }: { stack: StackTier }) {
             href={stack.tools[0]?.affiliateUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => handleAffiliateClick(stack.tools[0]?.name, stack.tools[0]?.category?.[0])}
             className={`btn-primary w-full text-center ${
               stack.highlighted ? "" : "bg-primary-50 hover:bg-primary-600"
             }`}

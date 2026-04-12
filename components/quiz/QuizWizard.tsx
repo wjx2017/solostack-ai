@@ -1,6 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { usePlausible } from "next-plausible";
+import { useEffect } from "react";
 import questionsData from "@/data/questions.json";
 import { useQuizStore } from "@/lib/store";
 
@@ -8,6 +10,7 @@ const questions = questionsData.questions;
 
 export function QuizWizard() {
   const router = useRouter();
+  const plausible = usePlausible();
   const currentStep = useQuizStore((s) => s.currentStep);
   const answers = useQuizStore((s) => s.answers);
   const setAnswer = useQuizStore((s) => s.setAnswer);
@@ -15,6 +18,21 @@ export function QuizWizard() {
   const prevStep = useQuizStore((s) => s.prevStep);
   const setCompleted = useQuizStore((s) => s.setCompleted);
   const { generateRecommendations } = require("@/lib/engine");
+  
+  // 追踪问卷开始（仅在第一步触发一次）
+  if (currentStep === 0) {
+    // 使用 useEffect 确保只在组件挂载时触发一次
+    const hasTrackedStart = typeof window !== 'undefined' 
+      ? sessionStorage.getItem('quiz_started_tracked') 
+      : false;
+    
+    if (!hasTrackedStart) {
+      plausible('quiz_started');
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('quiz_started_tracked', 'true');
+      }
+    }
+  }
 
   const question = questions[currentStep];
   if (!question) return null;
@@ -52,6 +70,15 @@ export function QuizWizard() {
   function handleSubmit() {
     const results = generateRecommendations(answers);
     setCompleted(results);
+    
+    // 追踪问卷完成
+    plausible('quiz_completed', {
+      props: {
+        industry: answers.industry,
+        budget_range: answers.budget,
+      }
+    });
+    
     router.push("/results");
   }
 

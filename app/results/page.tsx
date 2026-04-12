@@ -55,11 +55,11 @@ export default function ResultsPage() {
               "position": index + 1,
               "item": {
                 "@type": "Product",
-                "name": `${stack.tier} AI Stack`,
-                "description": `Personalized AI tool stack for ${answers.industry}`,
+                "name": `${stack.nameEn} - AI Tool Stack`,
+                "description": `Personalized AI tool stack for ${answers.industry || 'your business'}`,
                 "offers": {
                   "@type": "Offer",
-                  "price": stack.tools.reduce((sum, tool) => sum + (tool.priceMonthly || 0), 0),
+                  "price": stack.monthlyTotal,
                   "priceCurrency": "USD"
                 }
               }
