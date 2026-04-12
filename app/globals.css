@@ -1,0 +1,45 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+  }
+
+  body {
+    @apply bg-white text-gray-900 antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-xl 
+           bg-primary-600 text-white font-semibold text-base
+           hover:bg-primary-700 active:bg-primary-800
+           transition-all duration-200 shadow-lg shadow-primary-600/25
+           hover:shadow-xl hover:shadow-primary-600/30
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-xl
+           bg-white text-gray-700 font-semibold text-base border border-gray-200
+           hover:bg-gray-50 hover:border-gray-300
+           transition-all duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl border border-gray-100 shadow-sm
+           hover:shadow-md transition-shadow duration-300;
+  }
+
+  .option-card {
+    @apply flex items-center gap-4 p-4 rounded-xl border-2 border-gray-200 
+           cursor-pointer transition-all duration-200
+           hover:border-primary-300 hover:bg-primary-50/50
+           data-[selected=true]:border-primary-500 data-[selected=true]:bg-primary-50;
+  }
+}

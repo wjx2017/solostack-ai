@@ -1,0 +1,73 @@
+{
+  "questions": [
+    {
+      "id": "industry",
+      "type": "single",
+      "question": "你所在的行业类型？",
+      "subtitle": "这将帮助我们为你匹配最相关的工具",
+      "options": [
+        { "value": "content", "label": "内容创作", "icon": "✍️", "desc": "博客/视频/播客" },
+        { "value": "ecommerce", "label": "电商", "icon": "🛒", "desc": "网店/跨境电商" },
+        { "value": "saas", "label": "SaaS/软件", "icon": "💻", "desc": "软件开发/SaaS产品" },
+        { "value": "freelance", "label": "自由职业", "icon": "🎯", "desc": "设计/咨询/顾问" },
+        { "value": "other", "label": "其他", "icon": "🌟", "desc": "其他行业" }
+      ]
+    },
+    {
+      "id": "budget",
+      "type": "single",
+      "question": "你的月度 AI 工具预算？",
+      "subtitle": "根据你的预算推荐最优性价比组合",
+      "options": [
+        { "value": "<50", "label": "$50 以下", "icon": "💰", "desc": "精打细算型" },
+        { "value": "50-100", "label": "$50 - $100", "icon": "💵", "desc": "性价比优先" },
+        { "value": "100-300", "label": "$100 - $300", "icon": "💎", "desc": "品质优先" },
+        { "value": "300+", "label": "$300+", "icon": "🚀", "desc": "全力投入" }
+      ]
+    },
+    {
+      "id": "scenarios",
+      "type": "multiple",
+      "question": "你最需要哪些场景的工具？",
+      "subtitle": "选择 2-4 个你最核心的使用场景",
+      "maxSelect": 4,
+      "minSelect": 1,
+      "options": [
+        { "value": "writing", "label": "写作", "icon": "✏️", "desc": "文案/博客/邮件" },
+        { "value": "design", "label": "设计", "icon": "🎨", "desc": "图片/海报/Logo" },
+        { "value": "video", "label": "视频", "icon": "🎬", "desc": "短视频/剪辑/配音" },
+        { "value": "coding", "label": "编程", "icon": "💻", "desc": "开发/Debug/部署" },
+        { "value": "automation", "label": "自动化", "icon": "⚡", "desc": "工作流/集成" },
+        { "value": "social-media", "label": "社交媒体", "icon": "📱", "desc": "运营/排期/分析" },
+        { "value": "seo", "label": "SEO", "icon": "🔍", "desc": "关键词/排名/内容优化" },
+        { "value": "productivity", "label": "效率工具", "icon": "📊", "desc": "笔记/项目/文档" }
+      ]
+    },
+    {
+      "id": "skillLevel",
+      "type": "single",
+      "question": "你的技术技能水平？",
+      "subtitle": "这会影响工具的推荐难度",
+      "options": [
+        { "value": "no-code", "label": "无代码", "icon": "🌱", "desc": "偏好零门槛工具" },
+        { "value": "low-code", "label": "低代码", "icon": "🌿", "desc": "能用一些技术工具" },
+        { "value": "technical", "label": "技术熟练", "icon": "🌳", "desc": "能自己集成和开发" }
+      ]
+    },
+    {
+      "id": "goals",
+      "type": "multiple",
+      "question": "你希望 AI 工具帮你实现什么？",
+      "subtitle": "选择 1-3 个你最看重的目标",
+      "maxSelect": 3,
+      "minSelect": 1,
+      "options": [
+        { "value": "save-time", "label": "节省时间", "icon": "⏰", "desc": "减少重复劳动" },
+        { "value": "improve-quality", "label": "提高质量", "icon": "⭐", "desc": "产出更专业" },
+        { "value": "reduce-cost", "label": "降低成本", "icon": "💸", "desc": "替代外包/员工" },
+        { "value": "automate", "label": "自动化流程", "icon": "🔄", "desc": "减少人工干预" },
+        { "value": "increase-income", "label": "增加收入", "icon": "📈", "desc": "提高变现能力" }
+      ]
+    }
+  ]
+}

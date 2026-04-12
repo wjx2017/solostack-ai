@@ -1,0 +1,154 @@
+{
+  "tools": [
+    {
+      "id": "chatgpt",
+      "name": "ChatGPT Plus",
+      "description": "AI 写作助手，对话式交互，代码/文案/翻译全能",
+      "category": ["writing", "coding", "productivity"],
+      "icon": "💬",
+      "pricing": {
+        "monthly": 20,
+        "annual": 240,
+        "freeTier": "GPT-4o mini 免费"
+      },
+      "affiliateUrl": "https://chat.openai.com/?utm_source=solostack.ai",
+      "bestFor": ["content", "saas", "freelance", "ecommerce"],
+      "tier": "basic"
+    },
+    {
+      "id": "notion-ai",
+      "name": "Notion AI",
+      "description": "全能工作空间 + AI 写作，笔记/项目管理一体化",
+      "category": ["writing", "productivity"],
+      "icon": "📝",
+      "pricing": {
+        "monthly": 10,
+        "annual": 96,
+        "freeTier": "基础版免费"
+      },
+      "affiliateUrl": "https://notion.so/?utm_source=solostack.ai",
+      "bestFor": ["content", "saas", "freelance"],
+      "tier": "basic"
+    },
+    {
+      "id": "canva-pro",
+      "name": "Canva Pro",
+      "description": "AI 设计工具，海报/社媒图/PPT 一键生成",
+      "category": ["design", "social-media"],
+      "icon": "🎨",
+      "pricing": {
+        "monthly": 13,
+        "annual": 120,
+        "freeTier": "基础功能免费"
+      },
+      "affiliateUrl": "https://www.canva.com/?utm_source=solostack.ai",
+      "bestFor": ["content", "ecommerce", "freelance"],
+      "tier": "basic"
+    },
+    {
+      "id": "midjourney",
+      "name": "Midjourney",
+      "description": "AI 图像生成，高质量艺术/插画/产品图",
+      "category": ["design", "video"],
+      "icon": "🖼️",
+      "pricing": {
+        "monthly": 30,
+        "annual": 288,
+        "freeTier": "无"
+      },
+      "affiliateUrl": "https://www.midjourney.com/?utm_source=solostack.ai",
+      "bestFor": ["content", "ecommerce"],
+      "tier": "recommended"
+    },
+    {
+      "id": "claude",
+      "name": "Claude Pro",
+      "description": "Anthropic AI，长文本处理能力强，适合深度写作与分析",
+      "category": ["writing", "coding", "productivity"],
+      "icon": "🤖",
+      "pricing": {
+        "monthly": 20,
+        "annual": 240,
+        "freeTier": "Claude Sonnet 免费"
+      },
+      "affiliateUrl": "https://claude.ai/?utm_source=solostack.ai",
+      "bestFor": ["content", "saas", "freelance"],
+      "tier": "basic"
+    },
+    {
+      "id": "make",
+      "name": "Make (Integromat)",
+      "description": "可视化自动化工具，连接 1000+ 应用，替代 Zapier 更省钱",
+      "category": ["automation"],
+      "icon": "⚡",
+      "pricing": {
+        "monthly": 10,
+        "annual": 108,
+        "freeTier": "1000 操作/月免费"
+      },
+      "affiliateUrl": "https://www.make.com/?utm_source=solostack.ai",
+      "bestFor": ["saas", "ecommerce", "freelance"],
+      "tier": "basic"
+    },
+    {
+      "id": "elevenlabs",
+      "name": "ElevenLabs",
+      "description": "AI 语音生成，多语言/克隆声音/播客配音",
+      "category": ["video", "content"],
+      "icon": "🎙️",
+      "pricing": {
+        "monthly": 22,
+        "annual": 264,
+        "freeTier": "1 万字/月免费"
+      },
+      "affiliateUrl": "https://elevenlabs.io/?utm_source=solostack.ai",
+      "bestFor": ["content", "ecommerce"],
+      "tier": "recommended"
+    },
+    {
+      "id": "framer",
+      "name": "Framer",
+      "description": "AI 建站工具，拖拽式设计，5 分钟上线网站",
+      "category": ["design", "web"],
+      "icon": "🌐",
+      "pricing": {
+        "monthly": 15,
+        "annual": 180,
+        "freeTier": "免费版可用"
+      },
+      "affiliateUrl": "https://www.framer.com/?utm_source=solostack.ai",
+      "bestFor": ["saas", "freelance", "ecommerce"],
+      "tier": "basic"
+    },
+    {
+      "id": "perplexity",
+      "name": "Perplexity Pro",
+      "description": "AI 搜索引擎，实时联网搜索+引用来源，适合市场调研",
+      "category": ["productivity", "research", "seo"],
+      "icon": "🔍",
+      "pricing": {
+        "monthly": 20,
+        "annual": 200,
+        "freeTier": "基础版免费"
+      },
+      "affiliateUrl": "https://www.perplexity.ai/?utm_source=solostack.ai",
+      "bestFor": ["content", "saas", "freelance", "ecommerce"],
+      "tier": "basic"
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "description": "AI 代码编辑器，基于 VS Code 增强，自动补全/重构/Debug",
+      "category": ["coding"],
+      "icon": "💻",
+      "pricing": {
+        "monthly": 20,
+        "annual": 192,
+        "freeTier": "基础版免费"
+      },
+      "affiliateUrl": "https://www.cursor.com/?utm_source=solostack.ai",
+      "bestFor": ["saas", "freelance"],
+      "tier": "basic"
+    }
+  ]
+}
