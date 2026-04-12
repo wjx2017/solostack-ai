@@ -2,9 +2,34 @@ import { QuizWizard } from "@/components/quiz/QuizWizard";
 import { ProgressBar } from "@/components/quiz/ProgressBar";
 import type { Metadata } from "next";
 
+const SITE_URL = "https://solostack.ai";
+
 export const metadata: Metadata = {
-  title: "Find Your AI Stack | Solostack AI",
-  description: "Answer 5 questions to get a personalized AI tool stack recommendation",
+  title: "Find Your AI Stack — 5-Minute Quiz | Solostack AI",
+  description:
+    "Answer 5 quick questions to get personalized AI tool recommendations tailored to your industry, budget, and needs. Free, no sign-up required.",
+  keywords: [
+    "AI tool quiz",
+    "AI stack finder",
+    "personalized AI recommendations",
+    "solopreneur tools",
+    "AI tool matcher",
+  ],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "Find Your AI Stack — 5-Minute Quiz",
+    description: "Get personalized AI tool recommendations in just 5 minutes",
+    url: `${SITE_URL}/quiz`,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Find Your AI Stack — 5-Minute Quiz",
+    description: "Get personalized AI tool recommendations in just 5 minutes",
+  },
 };
 
 export default function QuizPage() {

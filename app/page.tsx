@@ -1,8 +1,139 @@
 import { CTAButton } from "@/components/shared/CTAButton";
+import Script from "next/script";
+
+const SITE_URL = "https://solostack.ai";
+
+// JSON-LD Schema.org structured data for GEO optimization
+const softwareApplicationSchema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Solostack AI",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web Browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Find your perfect AI tool stack in 5 minutes. Personalized AI tool recommendations for solopreneurs and indie hackers.",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "1000"
+  },
+  "url": SITE_URL,
+  "author": {
+    "@type": "Organization",
+    "name": "Solostack AI Team"
+  }
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Solostack AI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Solostack AI is a free tool that helps solopreneurs and indie hackers find the perfect AI tool stack for their business. Take a 5-minute quiz and get personalized AI tool recommendations based on your industry, budget, and needs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the AI tool matching work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our smart matching system analyzes your industry, budget, and specific needs through 5 simple questions. We then recommend 3 tailored AI tool stacks (starter, growth, and pro) that perfectly fit your requirements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Solostack AI free to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, Solostack AI is completely free to use. No sign-up required, no paywalls. We believe everyone should have access to transparent AI tool recommendations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What industries does Solostack AI support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Solostack AI supports all industries and use cases. Whether you're in content creation, e-commerce, consulting, SaaS, or any other field, we'll recommend AI tools tailored to your specific needs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate are the AI tool recommendations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our recommendations are based on extensive research and real-world testing. We continuously update our database with the latest AI tools and pricing information to ensure you get the most accurate and up-to-date recommendations."
+      }
+    }
+  ]
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Solostack AI",
+  "url": SITE_URL,
+  "logo": `${SITE_URL}/logo.png`,
+  "description": "Helping solopreneurs find their perfect AI tool stack in 5 minutes.",
+  "sameAs": [
+    "https://twitter.com/solostackai",
+    "https://linkedin.com/company/solostack-ai"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    "email": "support@solostack.ai"
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": SITE_URL
+    }
+  ]
+};
 
 export default function HomePage() {
   return (
     <>
+      {/* JSON-LD Structured Data for GEO */}
+      <Script
+        id="software-application-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplicationSchema) }}
+        strategy="afterInteractive"
+      />
+      <Script
+        id="faq-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        strategy="afterInteractive"
+      />
+      <Script
+        id="organization-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        strategy="afterInteractive"
+      />
+      <Script
+        id="breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        strategy="afterInteractive"
+      />
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         {/* Background gradient */}

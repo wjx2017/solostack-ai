@@ -5,6 +5,16 @@ import { useQuizStore } from "@/lib/store";
 import { StackCard } from "@/components/results/StackCard";
 import { CostCalculator } from "@/components/results/CostCalculator";
 import { useEffect } from "react";
+import Script from "next/script";
+
+const SITE_URL = "https://solostack.ai";
+
+// JSON-LD for results page (product recommendations)
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": []
+};
 
 export default function ResultsPage() {
   const router = useRouter();
@@ -31,7 +41,34 @@ export default function ResultsPage() {
   }
 
   return (
-    <section className="py-8 sm:py-16 bg-gray-50/50">
+    <>
+      {/* JSON-LD for Product Recommendations */}
+      <Script
+        id="product-list-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": results?.map((stack, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "item": {
+                "@type": "Product",
+                "name": `${stack.tier} AI Stack`,
+                "description": `Personalized AI tool stack for ${answers.industry}`,
+                "offers": {
+                  "@type": "Offer",
+                  "price": stack.tools.reduce((sum, tool) => sum + (tool.priceMonthly || 0), 0),
+                  "priceCurrency": "USD"
+                }
+              }
+            })) || []
+          })
+        }}
+        strategy="afterInteractive"
+      />
+      <section className="py-8 sm:py-16 bg-gray-50/50">
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center mb-10">
@@ -70,5 +107,6 @@ export default function ResultsPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }
