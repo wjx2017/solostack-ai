@@ -58,15 +58,93 @@ export function getBudgetRange(tier: "basic" | "recommended" | "premium"): [numb
   }
 }
 
+/**
+ * Get max monthly total allowed for a given user budget and stack tier.
+ * Tiers: Starter (60%), Recommended (80%), Pro (100%)
+ */
+function getMaxBudgetForTier(budget: string, stackIndex: number): number {
+  let maxBudget: number;
+  if (budget === "<50") maxBudget = 50;
+  else if (budget === "50-100") maxBudget = 100;
+  else if (budget === "100-300") maxBudget = 300;
+  else maxBudget = 500;
+
+  const tierPercent = [0.6, 0.8, 1.0][stackIndex] || 1.0;
+  return maxBudget * tierPercent;
+}
+
+/**
+ * Select tools within a strict budget.
+ * Strategy: For each position, pick the highest-scored tool that still
+ * leaves enough budget for remaining positions (using cheapest remaining tools).
+ */
+function selectToolsWithinBudget(
+  scoredTools: (Tool & { score: number })[],
+  maxBudget: number,
+  maxCount: number
+): (Tool & { score: number })[] {
+  const selected: (Tool & { score: number })[] = [];
+  let total = 0;
+
+  // Precompute: for k remaining slots, what's the minimum cost to fill them?
+  // Sort by price ascending to know the cheapest options
+  const sortedByPrice = [...scoredTools].sort((a, b) => a.pricing.monthly - b.pricing.monthly);
+
+  function minCostForKSlots(k: number, excludeIds: Set<string>): number {
+    let cost = 0;
+    let count = 0;
+    for (const t of sortedByPrice) {
+      if (!excludeIds.has(t.id)) {
+        cost += t.pricing.monthly;
+        count++;
+        if (count >= k) break;
+      }
+    }
+    return cost;
+  }
+
+  for (let slot = 0; slot < maxCount; slot++) {
+    const remainingSlots = maxCount - slot - 1;
+    const selectedIds = new Set(selected.map((s) => s.id));
+    const minCostRemaining = minCostForKSlots(remainingSlots, selectedIds);
+
+    // Find the best (highest score) tool that fits: price <= maxBudget - total - minCostRemaining
+    const maxPriceForThisSlot = maxBudget - total - minCostRemaining;
+
+    const affordable = scoredTools
+      .filter(
+        (t) =>
+          !selectedIds.has(t.id) && t.pricing.monthly <= maxPriceForThisSlot
+      )
+      .sort((a, b) => b.score - a.score);
+
+    if (affordable.length > 0) {
+      selected.push(affordable[0]);
+      total += affordable[0].pricing.monthly;
+    } else {
+      // No affordable tool found for this slot — stop
+      break;
+    }
+  }
+
+  return selected;
+}
+
 export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
   const allTools = toolsData.tools as Tool[];
   const affiliateIds = new Set(affiliateData.affiliateToolIds);
-  // Only recommend tools that are in the affiliate whitelist
-  const tools = allTools.filter((t) => affiliateIds.has(t.id));
+
+  // P1 fix: Filter out coding tools for no-code users
+  let tools = allTools.filter((t) => affiliateIds.has(t.id));
+  if (answers.skillLevel === "no-code") {
+    tools = tools.filter((t) => !t.category.includes("coding"));
+  }
+
   const industry = answers.industry || "other";
   const budget = answers.budget || "50-100";
   const scenarios = answers.scenarios || ["writing"];
   const userTier = getBudgetTier(budget);
+  const skillLevel = answers.skillLevel || "no-code";
 
   // Score each tool for this user
   const scored = tools.map((tool) => {
@@ -83,46 +161,71 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
     // Tier alignment
     if (tool.tier === userTier) score += 2;
 
+    // P1 fix: Technical users get bonus for coding/automation tools
+    if (
+      skillLevel === "technical" &&
+      (tool.category.includes("coding") || tool.category.includes("automation"))
+    ) {
+      score += 5;
+    }
+
+    // P1 fix: No-code users get bonus for productivity/writing tools
+    if (
+      skillLevel === "no-code" &&
+      (tool.category.includes("productivity") || tool.category.includes("writing"))
+    ) {
+      score += 3;
+    }
+
     return { ...tool, score };
   });
 
-  // Sort by score descending
+  // Sort by score descending for initial ranking
   scored.sort((a, b) => b.score - a.score);
 
   // Generate 3 tiers
-  const tiers: ("basic" | "recommended" | "premium")[] = [
-    "basic",
-    "recommended",
-    "premium",
+  const tierLabels = [
+    { name: "Starter Stack", nameEn: "Starter Stack", tag: "Great for Beginners", highlighted: false },
+    { name: "Growth Stack", nameEn: "Growth Stack", tag: "⭐ Most Popular", highlighted: true },
+    { name: "Pro Stack", nameEn: "Pro Stack", tag: "Full-Power Setup", highlighted: false },
   ];
 
-  const tierNames = {
-    basic: { name: "Starter Stack", nameEn: "Starter Stack", tag: "Great for Beginners", highlighted: false },
-    recommended: { name: "Growth Stack", nameEn: "Growth Stack", tag: "⭐ Most Popular", highlighted: true },
-    premium: { name: "Pro Stack", nameEn: "Pro Stack", tag: "Full-Power Setup", highlighted: false },
-  };
+  const toolCounts = [2, 4, 5]; // basic, recommended, premium
 
-  const stacks: StackTier[] = tiers.map((tier) => {
-    const [minBudget, maxBudget] = getBudgetRange(tier);
+  const stacks = tierLabels.map((label, index) => {
+    const maxBudget = getMaxBudgetForTier(budget, index);
+    const maxCount = toolCounts[index];
 
-    // Select tools appropriate for this tier
-    // Basic: top 2-3 low-cost tools
-    // Recommended: top 3-4 tools
-    // Premium: top 4-5 tools
-    const toolCount = tier === "basic" ? 2 : tier === "recommended" ? 4 : 5;
+    let selected: (Tool & { score: number })[];
 
-    // Filter and pick tools
-    let selected = scored
-      .filter((t) => {
-        if (tier === "basic") return t.pricing.monthly <= 25;
-        if (tier === "recommended") return t.pricing.monthly <= 30;
-        return true;
-      })
-      .slice(0, toolCount);
+    if (index === 1 && skillLevel === "technical") {
+      // P1 fix: For technical users, ensure Growth Stack includes at least one technical tool
+      const technicalTools = scored.filter(
+        (t) => t.category.includes("coding") || t.category.includes("automation")
+      );
+      technicalTools.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.pricing.monthly - b.pricing.monthly;
+      });
 
-    // If not enough, fill from all
-    if (selected.length < 2) {
-      selected = scored.slice(0, toolCount);
+      if (technicalTools.length > 0 && technicalTools[0].pricing.monthly <= maxBudget) {
+        // Reserve budget for the best technical tool
+        const techTool = technicalTools[0];
+        const remainingBudget = maxBudget - techTool.pricing.monthly;
+        const nonTechnical = scored.filter(
+          (t) =>
+            t.id !== techTool.id &&
+            !t.category.includes("coding") &&
+            !t.category.includes("automation")
+        );
+        const others = selectToolsWithinBudget(nonTechnical, remainingBudget, maxCount - 1);
+        selected = [techTool, ...others];
+      } else {
+        // Fallback: just use budget-aware selection
+        selected = selectToolsWithinBudget(scored, maxBudget, maxCount);
+      }
+    } else {
+      selected = selectToolsWithinBudget(scored, maxBudget, maxCount);
     }
 
     const toolsWithReason = selected.map((tool) => ({
@@ -130,23 +233,30 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
       reason: getToolReason(tool, industry, scenarios),
     }));
 
-    const monthlyTotal = toolsWithReason.reduce((sum, t) => sum + t.pricing.monthly, 0);
-    const annualTotal = toolsWithReason.reduce((sum, t) => sum + t.pricing.annual, 0);
+    const monthlyTotal = toolsWithReason.reduce(
+      (sum, t) => sum + t.pricing.monthly,
+      0
+    );
+    const annualTotal = toolsWithReason.reduce(
+      (sum, t) => sum + t.pricing.annual,
+      0
+    );
     const annualSavings = Math.round(monthlyTotal * 12 - annualTotal);
-    const savingsPercent = monthlyTotal * 12 > 0
-      ? Math.round((annualSavings / (monthlyTotal * 12)) * 100)
-      : 0;
+    const savingsPercent =
+      monthlyTotal * 12 > 0
+        ? Math.round((annualSavings / (monthlyTotal * 12)) * 100)
+        : 0;
 
     return {
-      name: tierNames[tier].name,
-      nameEn: tierNames[tier].nameEn,
+      name: label.name,
+      nameEn: label.nameEn,
       monthlyTotal: Math.round(monthlyTotal),
       annualTotal,
       annualSavings,
       savingsPercent,
       tools: toolsWithReason,
-      tag: tierNames[tier].tag,
-      highlighted: tierNames[tier].highlighted,
+      tag: label.tag,
+      highlighted: label.highlighted,
     };
   });
 
