@@ -279,6 +279,7 @@ function getIndustryLabel(v: string): string {
     content: "content creation",
     ecommerce: "e-commerce",
     saas: "SaaS",
+    developer: "development",
     freelance: "freelance",
   };
   return map[v] || v;

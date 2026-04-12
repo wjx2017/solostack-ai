@@ -9,6 +9,7 @@
         { "value": "content", "label": "Content Creation", "icon": "✍️", "desc": "Blogs / Videos / Podcasts" },
         { "value": "ecommerce", "label": "E-Commerce", "icon": "🛒", "desc": "Online Store / Cross-border" },
         { "value": "saas", "label": "SaaS / Software", "icon": "💻", "desc": "Software Development / SaaS Products" },
+        { "value": "developer", "label": "Developer", "icon": "🛠️", "desc": "App Development / DevTools / Open Source" },
         { "value": "freelance", "label": "Freelance", "icon": "🎯", "desc": "Design / Consulting / Advisory" },
         { "value": "other", "label": "Other", "icon": "🌟", "desc": "Other industries" }
       ]
