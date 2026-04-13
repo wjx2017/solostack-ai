@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 // import PlausibleProvider from "next-plausible"; // Temporarily disabled for build
 import "./globals.css";
 import { Header } from "@/components/shared/Header";
@@ -97,6 +98,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* Cloudflare Web Analytics */}
+        <Script
+          id="cf-analytics"
+          strategy="afterInteractive"
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "877f68e341fc4b35ad6b2c25cb799f28"}'
+        />
         {/* <PlausibleProvider domain="solostack.ai"> */}
           <div className="min-h-screen flex flex-col">
             <Header />

@@ -32,7 +32,7 @@ export function StackCard({ stack }: { stack: StackTier }) {
         }`}
       >
         {stack.highlighted && (
-          <span className="inline-block px-3 py-1 bg-accent-500 text-white text-xs font-bold rounded-full mb-2">
+          <span className="inline-block px-3 py-1 bg-white/20 text-white text-xs font-bold rounded-full mb-2 backdrop-blur-sm">
             {stack.tag}
           </span>
         )}
@@ -117,10 +117,10 @@ export function StackCard({ stack }: { stack: StackTier }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => handleAffiliateClick(stack.tools[0]?.name, stack.tools[0]?.category?.[0])}
-            className={`btn-primary w-full text-center ${
+            className={`w-full text-center inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-base transition-all duration-200 ${
               stack.highlighted
-                ? ""
-                : "bg-primary-600 text-white hover:bg-primary-700"
+                ? "bg-white text-primary-700 border-2 border-primary-600 hover:bg-primary-50 hover:shadow-md"
+                : "bg-primary-600 text-white hover:bg-primary-700 shadow-lg shadow-primary-600/25 hover:shadow-xl hover:shadow-primary-600/30"
             }`}
           >
             Get {stack.name}
