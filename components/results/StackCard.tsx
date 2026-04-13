@@ -118,7 +118,9 @@ export function StackCard({ stack }: { stack: StackTier }) {
             rel="noopener noreferrer"
             onClick={() => handleAffiliateClick(stack.tools[0]?.name, stack.tools[0]?.category?.[0])}
             className={`btn-primary w-full text-center ${
-              stack.highlighted ? "" : "bg-primary-50 hover:bg-primary-600"
+              stack.highlighted
+                ? ""
+                : "bg-primary-600 text-white hover:bg-primary-700"
             }`}
           >
             Get {stack.name}
