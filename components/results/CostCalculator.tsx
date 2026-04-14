@@ -29,7 +29,7 @@ export function CostCalculator({ stacks }: { stacks: StackTier[] }) {
         <div className="bg-accent-50 rounded-xl p-4 text-center">
           <div className="text-sm text-accent-600 mb-1">Annual Savings</div>
           <div className="text-2xl font-bold text-accent-600">
-            -{recommended.savingsPercent}%
+            {recommended.savingsPercent}%
           </div>
         </div>
         <div className="bg-blue-50 rounded-xl p-4 text-center">
