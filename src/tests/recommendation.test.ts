@@ -330,6 +330,54 @@ describe('Recommendation Engine', () => {
     });
   });
 
+  it('should enforce category diversity — no more than 1 tool per primary category per stack', () => {
+    // Select scenarios that would previously cause writing tools to dominate:
+    // writing tools also match "productivity" and "seo" secondary categories,
+    // so they could sneak multiple slots via secondary matches.
+    const answers: Partial<Answer> = {
+      industry: 'content',
+      budget: '100-300',
+      scenarios: ['writing', 'productivity', 'seo', 'video'],
+      skillLevel: 'no-code',
+      goals: ['save-time'],
+    };
+
+    const stacks = generateRecommendations(answers);
+    
+    stacks.forEach(stack => {
+      // Group tools by primary category (first category in their list)
+      const primaryCatCount: Record<string, number> = {};
+      stack.tools.forEach(tool => {
+        const primary = tool.category[0];
+        primaryCatCount[primary] = (primaryCatCount[primary] || 0) + 1;
+      });
+
+      // No primary category should have more than 1 tool
+      for (const [cat, count] of Object.entries(primaryCatCount)) {
+        expect(count).toBeLessThanOrEqual(1);
+      }
+    });
+  });
+
+  it('should NOT let writing tools dominate a single stack even with high scenario overlap', () => {
+    // Even if user selects writing as their only scenario, diversity guard
+    // should prevent 2+ writing tools (same primary category) in one stack.
+    const answers: Partial<Answer> = {
+      industry: 'content',
+      budget: '100-300',
+      scenarios: ['writing'],
+      skillLevel: 'no-code',
+      goals: ['save-time'],
+    };
+
+    const stacks = generateRecommendations(answers);
+
+    stacks.forEach(stack => {
+      const writingTools = stack.tools.filter(t => t.category[0] === 'writing');
+      expect(writingTools.length).toBeLessThanOrEqual(1);
+    });
+  });
+
   it('should only recommend whitelisted affiliate tools', () => {
     const affiliateIds = new Set(affiliateData.affiliateToolIds);
     
