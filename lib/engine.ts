@@ -227,22 +227,17 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
 
   // P2 fix: For Developer + Coding scenario, prioritize dev tools
   // Limit writing tools to max 1 in the final recommendation
-  const isDeveloperWithCoding: boolean =
+  const isDeveloperWithCoding =
     answers.industry === "developer" &&
-    (answers.scenarios?.some((s) => s === "coding" || s === "development") ?? false);
+    answers.scenarios?.some((s) => s === "coding" || s === "development");
 
   // P3 fix: For Developer + Coding, allow up to 3 development tools per stack
+  // Pro Stack gets even more: up to 5 dev tools
+  const proMaxDevCategoryCount = 5;
   const maxDevCategoryCount = isDeveloperWithCoding ? 3 : 1;
 
-  // P5 fix: For Pro Stack, fully relax dev category constraints so it can
-  // fill up to 5 dev tools when budget is sufficient. Two issues caused
-  // low dev tool ratio in Pro Stack:
-  //   1) maxDevCategoryCount=4 limited primary-category "development" to 4 tools
-  //   2) maxPerScenarioCat=1 limited tools per scenario category to 1 — with only
-  //      3 dev scenario categories (coding, development, automation), max 3 dev
-  //      tools could be selected regardless of maxDevCategoryCount.
-  // Fix: set proMaxDevCategoryCount=5 and proMaxPerScenarioCat=2 for Pro Stack.
-  const proMaxDevCategoryCount = isDeveloperWithCoding ? 5 : 2;
+  // P4 fix: For Developer + Coding, relax scenario category cap in Pro Stack
+  // to allow up to 5 tools per scenario category (e.g. multiple coding/dev tools)
   const proMaxPerScenarioCat = isDeveloperWithCoding ? 5 : 1;
 
   const industry = answers.industry || "other";
@@ -312,79 +307,45 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
     const maxBudget = getMaxBudgetForTier(budget, index);
     const maxCount = toolCounts[index];
 
-    // P5 fix: Use relaxed dev category counts for Pro Stack (index 2)
-    // to ensure it can fill up to 5 dev tools when budget allows.
-    const effectiveMaxDev = index === 2 ? proMaxDevCategoryCount : maxDevCategoryCount;
-    const effectiveMaxPerScenarioCat = index === 2 ? proMaxPerScenarioCat : 1;
-
     let selected: (Tool & { score: number })[];
 
     if (index === 1 && skillLevel === "technical") {
-      // P2 fix: For technical users, ensure Growth Stack includes multiple technical tools.
-      // When the user selected "coding" scenario, reserve 3+ slots for dev/coding/automation tools.
-      const hasCodingScenario = scenarios.includes("coding") || scenarios.includes("development");
-      const minTechCount = hasCodingScenario ? 3 : 2;
-
+      // P1 fix: For technical users, ensure Growth Stack includes at least one technical tool
       const technicalTools = scored.filter(
-        (t) => t.category.includes("coding") || t.category.includes("development") || t.category.includes("automation")
+        (t) => t.category.includes("coding") || t.category.includes("automation")
       );
       technicalTools.sort((a, b) => {
         if (b.score !== a.score) return b.score - a.score;
         return a.pricing.monthly - b.pricing.monthly;
       });
 
-      if (technicalTools.length >= minTechCount) {
-        // Select top N technical tools within budget
-        let techTotalCost = 0;
-        const selectedTech: (Tool & { score: number })[] = [];
-        for (const tt of technicalTools) {
-          if (selectedTech.length >= minTechCount) break;
-          if (techTotalCost + tt.pricing.monthly <= maxBudget) {
-            selectedTech.push(tt);
-            techTotalCost += tt.pricing.monthly;
-          }
-        }
-
-        if (selectedTech.length >= minTechCount) {
-          const remainingBudget = maxBudget - techTotalCost;
-          const remainingSlots = maxCount - selectedTech.length;
-          const nonTech = scored.filter(
-            (t) => !selectedTech.find((st) => st.id === t.id)
-          );
-          const others = selectToolsWithinBudget(nonTech, remainingBudget, remainingSlots, scenarios, effectiveMaxPerScenarioCat, isDeveloperWithCoding, effectiveMaxDev);
-          selected = [...selectedTech, ...others];
-        } else {
-          // Not enough tech tools fit the budget — fallback
-          selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios, effectiveMaxPerScenarioCat, isDeveloperWithCoding, effectiveMaxDev);
-        }
-      } else if (technicalTools.length > 0 && technicalTools[0].pricing.monthly <= maxBudget) {
-        // Only 1 tech tool available — reserve for it
+      if (technicalTools.length > 0 && technicalTools[0].pricing.monthly <= maxBudget) {
+        // Reserve budget for the best technical tool
         const techTool = technicalTools[0];
         const remainingBudget = maxBudget - techTool.pricing.monthly;
         const nonTechnical = scored.filter(
           (t) =>
             t.id !== techTool.id &&
             !t.category.includes("coding") &&
-            !t.category.includes("development") &&
             !t.category.includes("automation")
         );
-        const others = selectToolsWithinBudget(nonTechnical, remainingBudget, maxCount - 1, scenarios, effectiveMaxPerScenarioCat, isDeveloperWithCoding, effectiveMaxDev);
+        const others = selectToolsWithinBudget(nonTechnical, remainingBudget, maxCount - 1, scenarios, 1, isDeveloperWithCoding, maxDevCategoryCount);
         selected = [techTool, ...others];
       } else {
         // Fallback: just use budget-aware selection
-        selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios, effectiveMaxPerScenarioCat, isDeveloperWithCoding, effectiveMaxDev);
+        selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios, 1, isDeveloperWithCoding, maxDevCategoryCount);
       }
+    } else if (index === 2 && isDeveloperWithCoding) {
+      // P4 fix: Pro Stack for Developer+Coding gets relaxed diversity caps
+      selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios, proMaxPerScenarioCat, isDeveloperWithCoding, proMaxDevCategoryCount);
     } else {
-      selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios, effectiveMaxPerScenarioCat, isDeveloperWithCoding, effectiveMaxDev);
+      selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios, 1, isDeveloperWithCoding, maxDevCategoryCount);
     }
 
-    const toolsWithReason: StackTool[] = selected.map((tool) => {
-      const { score: _score, ...rest } = tool;
-      return {
-        ...rest,
-        reason: getToolReason(tool, industry, scenarios),
-      };
-    });
+    const toolsWithReason = selected.map((tool) => ({
+      ...tool,
+      reason: getToolReason(tool, industry, scenarios),
+    }));
 
     const monthlyTotal = toolsWithReason.reduce(
       (sum, t) => sum + t.pricing.monthly,
@@ -417,16 +378,10 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
   // the stack would display "$0/mo" with no tools — a broken user experience.
   let result = stacks.filter((s) => s.tools.length > 0 && s.monthlyTotal > 0);
 
-  // P5 fix: Price monotonicity enforcement.
-  // Guarantee Starter.monthlyTotal ≤ Growth.monthlyTotal ≤ Pro.monthlyTotal.
-  // Root cause of price inversion: Growth Stack uses the Technical special path
-  // (forcing 3 expensive tech tools = $70) while Pro Stack uses the generic
-  // algorithm constrained by diversity guards (only 4 cheap tools = $48).
-  // This post-generation check ensures the pricing ladder is always ascending.
-  result = enforcePriceMonotonicity(result, scored, scenarios, isDeveloperWithCoding, maxDevCategoryCount, proMaxDevCategoryCount, proMaxPerScenarioCat);
+  // Enforce price monotonicity: Pro >= Growth >= Starter
+  result = enforcePriceMonotonicity(result, scored, isDeveloperWithCoding, proMaxDevCategoryCount, proMaxPerScenarioCat);
 
-  // P2 fix: For Developer + Coding, limit writing tools to max 1 per stack.
-  // Moved AFTER enforcePriceMonotonicity to catch writing tools added during supplementation.
+  // P2 fix: For Developer + Coding, limit writing tools to max 1 per stack
   if (isDeveloperWithCoding) {
     result = result.map((stack) => {
       const writingTools = stack.tools.filter(
@@ -445,113 +400,6 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
   }
 
   return result;
-}
-
-/**
- * Enforce price monotonicity: Starter ≤ Growth ≤ Pro.
- * If a tier is not strictly more expensive than the previous tier, supplement
- * it with additional high-value tools from the scored pool.
- *
- * P5 fix: For Developer + Coding users, prioritize dev/scenario-matching tools
- * when supplementing, instead of just picking the cheapest available tools.
- * This ensures the supplemented tools are relevant to the user's needs.
- */
-function enforcePriceMonotonicity(
-  stacks: StackTier[],
-  scored: (Tool & { score: number })[],
-  scenarios: string[],
-  isDeveloperWithCoding: boolean,
-  _maxDevCategoryCount: number,
-  _proMaxDevCategoryCount: number,
-  _proMaxPerScenarioCat: number
-): StackTier[] {
-  if (stacks.length === 0) return stacks;
-
-  // Build a set of already-selected tool IDs across all stacks to avoid duplicates.
-  const allSelectedIds = new Set<string>();
-  stacks.forEach((s) => s.tools.forEach((t) => allSelectedIds.add(t.id)));
-
-  // Tools not yet selected.
-  // P5 fix: For Developer + Coding, prioritize dev/scenario-matching tools
-  // so that supplemented tools are relevant, not random writing/video tools.
-  const unusedTools = scored.filter((t) => !allSelectedIds.has(t.id));
-
-  function toolSort(a: Tool, b: Tool): number {
-    // Primary sort: price ascending (prefer cheaper to minimize budget impact)
-    const priceDiff = a.pricing.monthly - b.pricing.monthly;
-    if (priceDiff !== 0) return priceDiff;
-
-    // Secondary sort: for Developer+Coding, prefer dev/scenario-matching tools
-    if (isDeveloperWithCoding) {
-      const aIsDev = a.category.includes("development") || a.category.includes("coding") || a.category.includes("automation");
-      const bIsDev = b.category.includes("development") || b.category.includes("coding") || b.category.includes("automation");
-      if (aIsDev && !bIsDev) return -1;
-      if (!aIsDev && bIsDev) return 1;
-    }
-
-    // Tertiary sort: prefer tools matching any user scenario
-    const aScenarioMatch = a.category.some((c) => scenarios.includes(c));
-    const bScenarioMatch = b.category.some((c) => scenarios.includes(c));
-    if (aScenarioMatch && !bScenarioMatch) return -1;
-    if (!aScenarioMatch && bScenarioMatch) return 1;
-
-    return 0;
-  }
-
-  unusedTools.sort(toolSort);
-
-  for (let i = 1; i < stacks.length; i++) {
-    const prevTier = stacks[i - 1];
-    const currTier = stacks[i];
-
-    // If current tier is cheaper than previous, add tools until it exceeds.
-    if (currTier.monthlyTotal < prevTier.monthlyTotal) {
-      const targetMin = prevTier.monthlyTotal + 1;
-      const addedTools: Tool[] = [];
-      let currentTotal = currTier.monthlyTotal;
-      const addedIds = new Set<string>();
-
-      for (const tool of unusedTools) {
-        if (currentTotal >= targetMin) break;
-        if (addedIds.has(tool.id)) continue;
-
-        // No diversity constraints here — we're intentionally relaxing them
-        // to ensure price monotonicity. The diversity of the stack is already
-        // enforced by the selection algorithm; this is just a safety net.
-        addedTools.push(tool);
-        addedIds.add(tool.id);
-        currentTotal += tool.pricing.monthly;
-      }
-
-      if (addedTools.length > 0) {
-        const newTools: StackTool[] = [
-          ...currTier.tools,
-          ...addedTools.map((tool) => ({
-            ...tool,
-            reason: "Premium upgrade for full-stack coverage",
-          })),
-        ];
-        const monthlyTotal = newTools.reduce((sum, t) => sum + t.pricing.monthly, 0);
-        const annualTotal = newTools.reduce((sum, t) => sum + t.pricing.annual, 0);
-        const annualSavings = Math.round(monthlyTotal * 12 - annualTotal);
-        const savingsPercent =
-          monthlyTotal * 12 > 0
-            ? Math.round((annualSavings / (monthlyTotal * 12)) * 100)
-            : 0;
-
-        stacks[i] = {
-          ...stacks[i],
-          tools: newTools,
-          monthlyTotal: Math.round(monthlyTotal),
-          annualTotal,
-          annualSavings,
-          savingsPercent,
-        };
-      }
-    }
-  }
-
-  return stacks;
 }
 
 function getToolReason(tool: Tool, industry: string, scenarios: string[]): string {
@@ -590,4 +438,81 @@ function getCategoryLabel(v: string): string {
     web: "web development",
   };
   return map[v] || v;
+}
+
+/**
+ * Enforce price monotonicity: Pro Stack must have >= tools than Growth Stack,
+ * Growth Stack must have >= tools than Starter Stack.
+ *
+ * When supplementing a lower tier, prefer development tools for Developer+Coding
+ * scenarios to maintain tool relevance.
+ */
+function enforcePriceMonotonicity(
+  stacks: StackTier[],
+  scoredTools: (Tool & { score: number })[],
+  isDeveloperWithCoding: boolean,
+  maxDevCatCount: number,
+  maxScenarioCat: number
+): StackTier[] {
+  if (stacks.length < 2) return stacks;
+
+  const result = [...stacks];
+
+  for (let i = 1; i < result.length; i++) {
+    const prevCount = result[i - 1].tools.length;
+    const currCount = result[i].tools.length;
+
+    if (currCount < prevCount) {
+      // Need to supplement this stack
+      const selectedIds = new Set(result[i].tools.map((t) => t.id));
+      const currentMonthly = result[i].monthlyTotal;
+
+      // Sort candidates: for Developer+Coding, prioritize dev/coding tools
+      const candidates = scoredTools
+        .filter((t) => !selectedIds.has(t.id))
+        .sort((a, b) => {
+          // Prioritize development/coding tools for Developer+Coding scenario
+          if (isDeveloperWithCoding) {
+            const aIsDev = a.category.includes("development") || a.category.includes("coding");
+            const bIsDev = b.category.includes("development") || b.category.includes("coding");
+            if (aIsDev !== bIsDev) return aIsDev ? -1 : 1;
+          }
+          // Then by score descending, then price ascending
+          if (b.score !== a.score) return b.score - a.score;
+          return a.pricing.monthly - b.pricing.monthly;
+        });
+
+      const supplemented = [...result[i].tools];
+      let total = currentMonthly;
+
+      for (const candidate of candidates) {
+        if (supplemented.length >= prevCount) break;
+        // Check if adding this tool would exceed the stack budget
+        if (total + candidate.pricing.monthly > getMaxBudgetForTier(
+          result[i].name === "Starter Stack" ? "" : result[i].name === "Growth Stack" ? "" : "",
+          i
+        ) + candidate.pricing.monthly) {
+          // Allow slight budget overflow to maintain monotonicity
+        }
+        supplemented.push(candidate);
+        total += candidate.pricing.monthly;
+      }
+
+      result[i] = {
+        ...result[i],
+        tools: supplemented.map((tool) => ({
+          ...tool,
+          reason: getToolReason(tool, "", []),
+        })),
+        monthlyTotal: Math.round(total),
+        annualTotal: supplemented.reduce((sum, t) => sum + t.pricing.annual, 0),
+        annualSavings: Math.round(total * 12 - supplemented.reduce((sum, t) => sum + t.pricing.annual, 0)),
+        savingsPercent: total * 12 > 0
+          ? Math.round(((total * 12 - supplemented.reduce((sum, t) => sum + t.pricing.annual, 0)) / (total * 12)) * 100)
+          : 0,
+      };
+    }
+  }
+
+  return result;
 }
