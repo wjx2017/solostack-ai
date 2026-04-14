@@ -227,9 +227,9 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
 
   // P2 fix: For Developer + Coding scenario, prioritize dev tools
   // Limit writing tools to max 1 in the final recommendation
-  const isDeveloperWithCoding =
+  const isDeveloperWithCoding: boolean =
     answers.industry === "developer" &&
-    answers.scenarios?.some((s) => s === "coding" || s === "development");
+    (answers.scenarios?.some((s) => s === "coding" || s === "development") ?? false);
 
   // P3 fix: For Developer + Coding, allow up to 3 development tools per stack
   // Pro Stack gets even more: up to 5 dev tools
@@ -342,10 +342,13 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
       selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios, 1, isDeveloperWithCoding, maxDevCategoryCount);
     }
 
-    const toolsWithReason = selected.map((tool) => ({
-      ...tool,
-      reason: getToolReason(tool, industry, scenarios),
-    }));
+    const toolsWithReason: StackTool[] = selected.map((tool) => {
+      const { score, ...toolWithoutScore } = tool;
+      return {
+        ...toolWithoutScore,
+        reason: getToolReason(toolWithoutScore, industry, scenarios),
+      };
+    });
 
     const monthlyTotal = toolsWithReason.reduce(
       (sum, t) => sum + t.pricing.monthly,
@@ -482,7 +485,7 @@ function enforcePriceMonotonicity(
           return a.pricing.monthly - b.pricing.monthly;
         });
 
-      const supplemented = [...result[i].tools];
+      const supplemented: StackTool[] = [...result[i].tools];
       let total = currentMonthly;
 
       for (const candidate of candidates) {
@@ -494,16 +497,26 @@ function enforcePriceMonotonicity(
         ) + candidate.pricing.monthly) {
           // Allow slight budget overflow to maintain monotonicity
         }
-        supplemented.push(candidate);
+        // Convert candidate to StackTool by adding reason and removing score
+        const stackTool: StackTool = {
+          id: candidate.id,
+          name: candidate.name,
+          description: candidate.description,
+          category: candidate.category,
+          icon: candidate.icon,
+          pricing: candidate.pricing,
+          affiliateUrl: candidate.affiliateUrl,
+          bestFor: candidate.bestFor,
+          tier: candidate.tier,
+          reason: getToolReason(candidate, "", []),
+        };
+        supplemented.push(stackTool);
         total += candidate.pricing.monthly;
       }
 
       result[i] = {
         ...result[i],
-        tools: supplemented.map((tool) => ({
-          ...tool,
-          reason: getToolReason(tool, "", []),
-        })),
+        tools: supplemented,
         monthlyTotal: Math.round(total),
         annualTotal: supplemented.reduce((sum, t) => sum + t.pricing.annual, 0),
         annualSavings: Math.round(total * 12 - supplemented.reduce((sum, t) => sum + t.pricing.annual, 0)),
