@@ -221,7 +221,12 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
 
   const industry = answers.industry || "other";
   const budget = answers.budget || "50-100";
-  const scenarios = answers.scenarios || ["writing"];
+  // Map questionnaire scenarios to tool categories (coding → development)
+  const rawScenarios = answers.scenarios || ["writing"];
+  const scenarios = rawScenarios.flatMap((s: string) => {
+    const mapping: Record<string, string> = { coding: "development" };
+    return mapping[s] ? [s, mapping[s]] : [s];
+  });
   const userTier = getBudgetTier(budget);
   const skillLevel = answers.skillLevel || "no-code";
 
@@ -240,10 +245,12 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
     // Tier alignment
     if (tool.tier === userTier) score += 2;
 
-    // P1 fix: Technical users get bonus for coding/automation tools
+    // P1 fix: Technical users get bonus for coding/automation/development tools
     if (
       skillLevel === "technical" &&
-      (tool.category.includes("coding") || tool.category.includes("automation"))
+      (tool.category.includes("coding") ||
+        tool.category.includes("automation") ||
+        tool.category.includes("development"))
     ) {
       score += 5;
     }
