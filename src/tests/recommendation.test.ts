@@ -149,6 +149,16 @@ function validateRecommendations(
           `Technical user should be recommended technical tools (coding/automation), got: ${recommendedTier.tools.map(t => t.name).join(', ')}`
         );
       }
+      // P2: When coding scenario selected, expect >=2 dev tools in Growth Stack
+      const devToolCount = recommendedTier.tools.filter(tool =>
+        tool.category.includes('coding') || tool.category.includes('development') || tool.category.includes('automation')
+      ).length;
+      const hasCodingScenario = answers.scenarios?.includes('coding') || answers.scenarios?.includes('development');
+      if (hasCodingScenario && devToolCount < 2) {
+        failures.push(
+          `Technical user with coding scenario should have >=2 dev tools in Growth Stack, got ${devToolCount}: ${recommendedTier.tools.map(t => t.name).join(', ')}`
+        );
+      }
     }
   }
 

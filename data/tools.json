@@ -4,10 +4,7 @@
       "id": "jasper",
       "name": "Jasper AI",
       "description": "AI writing assistant for marketing — blog posts, ad copy, social media content at scale",
-      "category": [
-        "writing",
-        "content"
-      ],
+      "category": ["writing", "content"],
       "icon": "✍️",
       "pricing": {
         "monthly": 49,
@@ -15,21 +12,14 @@
         "freeTier": "7-day free trial"
       },
       "affiliateUrl": "https://www.jasper.ai/?utm_source=solostack.ai",
-      "bestFor": [
-        "content",
-        "saas",
-        "ecommerce"
-      ],
+      "bestFor": ["content", "saas", "ecommerce"],
       "tier": "recommended"
     },
     {
       "id": "grammarly",
       "name": "Grammarly",
       "description": "AI writing assistant — grammar, spelling, tone, and clarity checks for all your writing",
-      "category": [
-        "writing",
-        "productivity"
-      ],
+      "category": ["writing", "productivity"],
       "icon": "📝",
       "pricing": {
         "monthly": 12,
@@ -37,22 +27,14 @@
         "freeTier": "Basic checks free"
       },
       "affiliateUrl": "https://www.grammarly.com/?utm_source=solostack.ai",
-      "bestFor": [
-        "content",
-        "saas",
-        "freelance",
-        "ecommerce"
-      ],
+      "bestFor": ["content", "saas", "freelance", "ecommerce"],
       "tier": "basic"
     },
     {
       "id": "notion-ai",
       "name": "Notion AI",
       "description": "All-in-one workspace with AI writing — notes, docs, and project management combined",
-      "category": [
-        "writing",
-        "productivity"
-      ],
+      "category": ["writing", "productivity"],
       "icon": "📋",
       "pricing": {
         "monthly": 10,
@@ -60,43 +42,29 @@
         "freeTier": "Free tier available"
       },
       "affiliateUrl": "https://notion.so/?utm_source=solostack.ai",
-      "bestFor": [
-        "content",
-        "saas",
-        "freelance"
-      ],
+      "bestFor": ["content", "saas", "freelance"],
       "tier": "basic"
     },
     {
       "id": "writesonic",
       "name": "Writesonic",
       "description": "AI writing tool — blog posts, product descriptions, ad copy with SEO optimization",
-      "category": [
-        "writing",
-        "seo"
-      ],
-      "icon": "✏️",
+      "category": ["writing", "seo"],
+      "icon": "🔥",
       "pricing": {
         "monthly": 19,
         "annual": 156,
         "freeTier": "10K words/month free"
       },
       "affiliateUrl": "https://writesonic.com/?utm_source=solostack.ai",
-      "bestFor": [
-        "content",
-        "ecommerce",
-        "freelance"
-      ],
+      "bestFor": ["content", "ecommerce", "freelance"],
       "tier": "basic"
     },
     {
       "id": "pictory",
       "name": "Pictory AI",
       "description": "AI video creation — turn blog posts, scripts, and articles into engaging short videos",
-      "category": [
-        "video",
-        "content"
-      ],
+      "category": ["video", "content"],
       "icon": "🎬",
       "pricing": {
         "monthly": 23,
@@ -104,20 +72,14 @@
         "freeTier": "3 videos/month free"
       },
       "affiliateUrl": "https://pictory.ai/?utm_source=solostack.ai",
-      "bestFor": [
-        "content",
-        "saas"
-      ],
+      "bestFor": ["content", "ecommerce"],
       "tier": "recommended"
     },
     {
       "id": "murf",
       "name": "Murf AI",
       "description": "AI voice generator — realistic text-to-speech with 120+ voices in 20+ languages",
-      "category": [
-        "video",
-        "audio"
-      ],
+      "category": ["video", "content"],
       "icon": "🎙️",
       "pricing": {
         "monthly": 19,
@@ -125,20 +87,14 @@
         "freeTier": "10 min voice generation free"
       },
       "affiliateUrl": "https://murf.ai/?utm_source=solostack.ai",
-      "bestFor": [
-        "content",
-        "saas"
-      ],
+      "bestFor": ["content", "ecommerce"],
       "tier": "basic"
     },
     {
       "id": "n8n",
       "name": "n8n",
       "description": "Workflow automation platform — connect 400+ apps with visual or code-based workflows",
-      "category": [
-        "development",
-        "automation"
-      ],
+      "category": ["automation", "coding"],
       "icon": "⚡",
       "pricing": {
         "monthly": 24,
@@ -146,21 +102,14 @@
         "freeTier": "Self-hosted free"
       },
       "affiliateUrl": "https://n8n.io/?utm_source=solostack.ai",
-      "bestFor": [
-        "saas",
-        "ecommerce",
-        "freelance"
-      ],
+      "bestFor": ["developer", "saas", "ecommerce", "freelance"],
       "tier": "basic"
     },
     {
       "id": "tubebuddy",
       "name": "TubeBuddy",
       "description": "YouTube growth toolkit — keyword research, A/B testing, bulk processing, and SEO optimization",
-      "category": [
-        "seo",
-        "marketing"
-      ],
+      "category": ["social-media", "seo"],
       "icon": "📺",
       "pricing": {
         "monthly": 9,
@@ -168,186 +117,127 @@
         "freeTier": "Free starter plan"
       },
       "affiliateUrl": "https://www.tubebuddy.com/?utm_source=solostack.ai",
-      "bestFor": [
-        "content"
-      ],
+      "bestFor": ["content"],
       "tier": "basic"
     },
     {
       "id": "surfer-seo",
       "name": "Surfer SEO",
       "description": "AI-powered SEO optimization — content editor, SERP analyzer, and keyword research",
-      "category": [
-        "seo",
-        "marketing"
-      ],
-      "icon": "📊",
+      "category": ["seo", "content"],
+      "icon": "📈",
       "pricing": {
         "monthly": 89,
         "annual": 708,
         "freeTier": "None"
       },
       "affiliateUrl": "https://surferseo.com/?utm_source=solostack.ai",
-      "bestFor": [
-        "content",
-        "saas"
-      ],
+      "bestFor": ["content", "saas"],
       "tier": "recommended"
     },
     {
       "id": "elevenlabs",
       "name": "ElevenLabs",
       "description": "AI voice generation — multilingual, voice cloning, and podcast narration",
-      "category": [
-        "video",
-        "audio"
-      ],
-      "icon": "🔊",
+      "category": ["video", "content"],
+      "icon": "🎙️",
       "pricing": {
         "monthly": 22,
         "annual": 264,
         "freeTier": "10K chars/month free"
       },
       "affiliateUrl": "https://elevenlabs.io/?utm_source=solostack.ai",
-      "bestFor": [
-        "content",
-        "saas"
-      ],
+      "bestFor": ["content", "ecommerce"],
       "tier": "recommended"
     },
     {
       "id": "cursor",
       "name": "Cursor",
-      "description": "AI-native code editor for full-project context coding, refactoring, and debugging",
-      "category": [
-        "development",
-        "ai"
-      ],
+      "description": "AI-first code editor — write, edit, and discuss code with AI. Built on VS Code with deep AI integration",
+      "category": ["coding", "development"],
       "icon": "💻",
       "pricing": {
         "monthly": 20,
         "annual": 192,
-        "freeTier": "Hobby free"
+        "freeTier": "50 slow requests/month free"
       },
-      "affiliateUrl": null,
-      "bestFor": [
-        "developer",
-        "saas",
-        "freelance",
-        "ecommerce"
-      ],
-      "tier": "basic"
-    },
-    {
-      "id": "supabase",
-      "name": "Supabase",
-      "description": "Open-source Firebase alternative with Postgres, auth, storage, and realtime for MVPs",
-      "category": [
-        "development",
-        "backend"
-      ],
-      "icon": "🗄️",
-      "pricing": {
-        "monthly": 25,
-        "annual": 300,
-        "freeTier": "Free: 500MB DB, 50K MAU"
-      },
-      "affiliateUrl": null,
-      "bestFor": [
-        "developer",
-        "saas",
-        "freelance"
-      ],
+      "affiliateUrl": "https://www.cursor.com/?utm_source=solostack.ai",
+      "bestFor": ["developer", "saas", "freelance"],
       "tier": "basic"
     },
     {
       "id": "github-copilot",
       "name": "GitHub Copilot",
-      "description": "AI coding assistant integrated with GitHub, VS Code, and JetBrains for completion, chat, and review help",
-      "category": [
-        "development",
-        "ai"
-      ],
+      "description": "AI pair programmer — autocomplete, chat, and code explanations across 20+ IDEs",
+      "category": ["coding", "development"],
       "icon": "🤖",
       "pricing": {
         "monthly": 10,
         "annual": 100,
-        "freeTier": "Free tier available"
+        "freeTier": "Free for students & open source"
       },
-      "affiliateUrl": null,
-      "bestFor": [
-        "developer",
-        "saas",
-        "freelance",
-        "ecommerce"
-      ],
+      "affiliateUrl": "https://github.com/features/copilot?utm_source=solostack.ai",
+      "bestFor": ["developer", "saas"],
+      "tier": "basic"
+    },
+    {
+      "id": "supabase",
+      "name": "Supabase",
+      "description": "Open-source Firebase alternative — PostgreSQL database, auth, storage, and edge functions",
+      "category": ["development", "coding"],
+      "icon": "🗄️",
+      "pricing": {
+        "monthly": 25,
+        "annual": 250,
+        "freeTier": "500MB database, 1GB storage free"
+      },
+      "affiliateUrl": "https://supabase.com/?utm_source=solostack.ai",
+      "bestFor": ["developer", "saas"],
       "tier": "basic"
     },
     {
       "id": "vercel",
       "name": "Vercel",
-      "description": "Frontend-first hosting and deployment platform for Next.js, React apps, and serverless APIs",
-      "category": [
-        "development",
-        "hosting"
-      ],
+      "description": "Frontend cloud platform — deploy Next.js, React, and full-stack apps with zero config",
+      "category": ["development", "web"],
       "icon": "▲",
       "pricing": {
         "monthly": 20,
-        "annual": 240,
-        "freeTier": "Hobby free"
+        "annual": 200,
+        "freeTier": "Hobby tier free for personal projects"
       },
       "affiliateUrl": "https://vercel.com/?utm_source=solostack.ai",
-      "bestFor": [
-        "developer",
-        "saas",
-        "freelance",
-        "ecommerce"
-      ],
+      "bestFor": ["developer", "saas"],
       "tier": "basic"
     },
     {
-      "id": "replit",
-      "name": "Replit",
-      "description": "Online IDE with AI Agent — generate full-stack apps from natural language",
-      "category": [
-        "development",
-        "ai"
-      ],
-      "icon": "🧪",
+      "id": "linear",
+      "name": "Linear",
+      "description": "Streamlined issue tracking and project management — built for software teams who move fast",
+      "category": ["development", "productivity"],
+      "icon": "📋",
       "pricing": {
-        "monthly": 20,
-        "annual": 240,
-        "freeTier": "Starter free"
+        "monthly": 10,
+        "annual": 96,
+        "freeTier": "500 issues free"
       },
-      "affiliateUrl": "https://replit.com/?utm_source=solostack.ai",
-      "bestFor": [
-        "developer",
-        "freelance",
-        "saas"
-      ],
+      "affiliateUrl": "https://linear.app/?utm_source=solostack.ai",
+      "bestFor": ["developer", "saas"],
       "tier": "basic"
     },
     {
       "id": "railway",
       "name": "Railway",
-      "description": "Deploy Docker containers and microservices with auto-scaling",
-      "category": [
-        "development",
-        "hosting"
-      ],
+      "description": "Cloud hosting platform — deploy apps, databases, and services with automatic scaling",
+      "category": ["development", "coding"],
       "icon": "🚂",
       "pricing": {
         "monthly": 5,
-        "annual": 60,
-        "freeTier": "30-day trial ($5 credit)"
+        "annual": 50,
+        "freeTier": "$5 credit/month free"
       },
-      "affiliateUrl": "https://railway.com/?utm_source=solostack.ai",
-      "bestFor": [
-        "developer",
-        "saas",
-        "ecommerce"
-      ],
+      "affiliateUrl": "https://railway.app/?utm_source=solostack.ai",
+      "bestFor": ["developer", "saas"],
       "tier": "basic"
     }
   ]
