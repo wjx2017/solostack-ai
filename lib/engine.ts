@@ -74,14 +74,37 @@ function getMaxBudgetForTier(budget: string, stackIndex: number): number {
 }
 
 /**
+ * Get the primary category of a tool (first element of category array).
+ * Used for diversity enforcement to prevent a single category from
+ * dominating a stack, even when tools list multiple categories.
+ */
+function getPrimaryCategory(tool: Tool): string {
+  return tool.category[0] || "other";
+}
+
+/**
  * Select tools within a strict budget.
  * Strategy: For each position, pick the highest-scored tool that still
  * leaves enough budget for remaining positions (using cheapest remaining tools).
+ *
+ * Diversity guard (two-layer):
+ *   1) Primary category cap: no more than 1 tool per primary category per stack.
+ *      This prevents a stack from being dominated by tools of the same kind,
+ *      even when those tools list multiple overlapping categories.
+ *   2) Scenario category cap: no more than `maxPerScenarioCat` tools sharing
+ *      any user-selected scenario category. Prevents tools from sneaking in
+ *      via secondary category matches when the primary is already full.
+ * Together, these ensure that a stack of N tools spans at least N distinct
+ * primary categories, solving the "writing tools eat all recommendation slots"
+ * problem where tools like Grammarly (writing+productivity) and Notion AI
+ * (writing+productivity) both qualify under different category names.
  */
 function selectToolsWithinBudget(
   scoredTools: (Tool & { score: number })[],
   maxBudget: number,
-  maxCount: number
+  maxCount: number,
+  scenarioCategories?: string[],
+  maxPerScenarioCat: number = 1
 ): (Tool & { score: number })[] {
   const selected: (Tool & { score: number })[] = [];
   let total = 0;
@@ -130,10 +153,45 @@ function selectToolsWithinBudget(
     // for the remaining minimum-viable tool set.
     const maxPriceForThisSlot = maxBudget - total - minCostRemaining;
 
+    // --- Diversity tracking ---
+
+    // (1) Primary category counts: first category of each selected tool.
+    //     Cap = 1 per primary category.
+    const primaryCatCount: Record<string, number> = {};
+    selected.forEach((s) => {
+      const pc = getPrimaryCategory(s);
+      primaryCatCount[pc] = (primaryCatCount[pc] || 0) + 1;
+    });
+
+    // (2) Scenario category counts: for tools whose ANY category matches
+    //     a user-selected scenario.
+    const scenarioCatCount: Record<string, number> = {};
+    if (scenarioCategories) {
+      selected.forEach((s) => {
+        s.category.forEach((c) => {
+          if (scenarioCategories.includes(c)) {
+            scenarioCatCount[c] = (scenarioCatCount[c] || 0) + 1;
+          }
+        });
+      });
+    }
+
     const affordable = scoredTools
       .filter(
         (t) =>
-          !selectedIds.has(t.id) && t.pricing.monthly <= maxPriceForThisSlot
+          !selectedIds.has(t.id) &&
+          t.pricing.monthly <= maxPriceForThisSlot &&
+          // Diversity guard (1): primary category cap
+          (primaryCatCount[getPrimaryCategory(t)] || 0) < 1 &&
+          // Diversity guard (2): scenario category cap
+          !(
+            scenarioCategories &&
+            t.category.some(
+              (c) =>
+                scenarioCategories.includes(c) &&
+                (scenarioCatCount[c] || 0) >= maxPerScenarioCat
+            )
+          )
       )
       .sort((a, b) => {
         if (b.score !== a.score) return b.score - a.score;
@@ -190,12 +248,16 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
       score += 5;
     }
 
-    // P1 fix: No-code users get bonus for productivity/writing tools
+    // P1 fix: No-code users get a small bonus for productivity tools.
+    // Writing bonus is intentionally removed: writing tools already get strong
+    // scores from scenario overlap (many users select "writing"), and the old
+    // +3 bonus caused writing tools to dominate all recommendation slots.
+    // The diversity guard (primary-category cap = 1) now handles fairness.
     if (
       skillLevel === "no-code" &&
-      (tool.category.includes("productivity") || tool.category.includes("writing"))
+      tool.category.includes("productivity")
     ) {
-      score += 3;
+      score += 1;
     }
 
     return { ...tool, score };
@@ -239,14 +301,14 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
             !t.category.includes("coding") &&
             !t.category.includes("automation")
         );
-        const others = selectToolsWithinBudget(nonTechnical, remainingBudget, maxCount - 1);
+        const others = selectToolsWithinBudget(nonTechnical, remainingBudget, maxCount - 1, scenarios);
         selected = [techTool, ...others];
       } else {
         // Fallback: just use budget-aware selection
-        selected = selectToolsWithinBudget(scored, maxBudget, maxCount);
+        selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios);
       }
     } else {
-      selected = selectToolsWithinBudget(scored, maxBudget, maxCount);
+      selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios);
     }
 
     const toolsWithReason = selected.map((tool) => ({
