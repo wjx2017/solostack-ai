@@ -304,23 +304,52 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
     let selected: (Tool & { score: number })[];
 
     if (index === 1 && skillLevel === "technical") {
-      // P1 fix: For technical users, ensure Growth Stack includes at least one technical tool
+      // P2 fix: For technical users, ensure Growth Stack includes multiple technical tools.
+      // When the user selected "coding" scenario, reserve 3+ slots for dev/coding/automation tools.
+      const hasCodingScenario = scenarios.includes("coding") || scenarios.includes("development");
+      const minTechCount = hasCodingScenario ? 3 : 2;
+
       const technicalTools = scored.filter(
-        (t) => t.category.includes("coding") || t.category.includes("automation")
+        (t) => t.category.includes("coding") || t.category.includes("development") || t.category.includes("automation")
       );
       technicalTools.sort((a, b) => {
         if (b.score !== a.score) return b.score - a.score;
         return a.pricing.monthly - b.pricing.monthly;
       });
 
-      if (technicalTools.length > 0 && technicalTools[0].pricing.monthly <= maxBudget) {
-        // Reserve budget for the best technical tool
+      if (technicalTools.length >= minTechCount) {
+        // Select top N technical tools within budget
+        let techTotalCost = 0;
+        const selectedTech: (Tool & { score: number })[] = [];
+        for (const tt of technicalTools) {
+          if (selectedTech.length >= minTechCount) break;
+          if (techTotalCost + tt.pricing.monthly <= maxBudget) {
+            selectedTech.push(tt);
+            techTotalCost += tt.pricing.monthly;
+          }
+        }
+
+        if (selectedTech.length >= minTechCount) {
+          const remainingBudget = maxBudget - techTotalCost;
+          const remainingSlots = maxCount - selectedTech.length;
+          const nonTech = scored.filter(
+            (t) => !selectedTech.find((st) => st.id === t.id)
+          );
+          const others = selectToolsWithinBudget(nonTech, remainingBudget, remainingSlots, scenarios, 1, isDeveloperWithCoding, maxDevCategoryCount);
+          selected = [...selectedTech, ...others];
+        } else {
+          // Not enough tech tools fit the budget — fallback
+          selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios, 1, isDeveloperWithCoding, maxDevCategoryCount);
+        }
+      } else if (technicalTools.length > 0 && technicalTools[0].pricing.monthly <= maxBudget) {
+        // Only 1 tech tool available — reserve for it
         const techTool = technicalTools[0];
         const remainingBudget = maxBudget - techTool.pricing.monthly;
         const nonTechnical = scored.filter(
           (t) =>
             t.id !== techTool.id &&
             !t.category.includes("coding") &&
+            !t.category.includes("development") &&
             !t.category.includes("automation")
         );
         const others = selectToolsWithinBudget(nonTechnical, remainingBudget, maxCount - 1, scenarios, 1, isDeveloperWithCoding, maxDevCategoryCount);
