@@ -216,8 +216,14 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
   // P1 fix: Filter out coding tools for no-code users
   let tools = allTools.filter((t) => affiliateIds.has(t.id));
   if (answers.skillLevel === "no-code") {
-    tools = tools.filter((t) => !t.category.includes("coding"));
+    tools = tools.filter((t) => !t.category.includes("coding") && !t.category.includes("development"));
   }
+
+  // P2 fix: For Developer + Coding scenario, prioritize dev tools
+  // Limit writing tools to max 1 in the final recommendation
+  const isDeveloperWithCoding =
+    answers.industry === "developer" &&
+    answers.scenarios?.some((s) => s === "coding" || s === "development");
 
   const industry = answers.industry || "other";
   const budget = answers.budget || "50-100";
@@ -352,7 +358,27 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
 
   // Filter out empty stacks: when budget is too tight and no tools were selected,
   // the stack would display "$0/mo" with no tools — a broken user experience.
-  return stacks.filter((s) => s.tools.length > 0 && s.monthlyTotal > 0);
+  let result = stacks.filter((s) => s.tools.length > 0 && s.monthlyTotal > 0);
+
+  // P2 fix: For Developer + Coding, limit writing tools to max 1 per stack
+  if (isDeveloperWithCoding) {
+    result = result.map((stack) => {
+      const writingTools = stack.tools.filter(
+        (t) => t.category[0] === "writing" || t.category.includes("writing")
+      );
+      if (writingTools.length > 1) {
+        // Keep only the first writing tool, remove the rest
+        const nonWriting = stack.tools.filter(
+          (t) => t.category[0] !== "writing" && !t.category.includes("writing")
+        );
+        const oneWriting = [writingTools[0]];
+        return { ...stack, tools: [...nonWriting, ...oneWriting] };
+      }
+      return stack;
+    });
+  }
+
+  return result;
 }
 
 function getToolReason(tool: Tool, industry: string, scenarios: string[]): string {
