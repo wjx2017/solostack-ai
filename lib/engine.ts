@@ -104,7 +104,9 @@ function selectToolsWithinBudget(
   maxBudget: number,
   maxCount: number,
   scenarioCategories?: string[],
-  maxPerScenarioCat: number = 1
+  maxPerScenarioCat: number = 1,
+  isDeveloperWithCoding: boolean = false,
+  maxDevCategoryCount: number = 1
 ): (Tool & { score: number })[] {
   const selected: (Tool & { score: number })[] = [];
   let total = 0;
@@ -182,7 +184,11 @@ function selectToolsWithinBudget(
           !selectedIds.has(t.id) &&
           t.pricing.monthly <= maxPriceForThisSlot &&
           // Diversity guard (1): primary category cap
-          (primaryCatCount[getPrimaryCategory(t)] || 0) < 1 &&
+          // P3 fix: For Developer + Coding, allow up to 3 development tools
+          (primaryCatCount[getPrimaryCategory(t)] || 0) <
+            (isDeveloperWithCoding && getPrimaryCategory(t) === "development"
+              ? maxDevCategoryCount
+              : 1) &&
           // Diversity guard (2): scenario category cap
           !(
             scenarioCategories &&
@@ -224,6 +230,9 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
   const isDeveloperWithCoding =
     answers.industry === "developer" &&
     answers.scenarios?.some((s) => s === "coding" || s === "development");
+
+  // P3 fix: For Developer + Coding, allow up to 3 development tools per stack
+  const maxDevCategoryCount = isDeveloperWithCoding ? 3 : 1;
 
   const industry = answers.industry || "other";
   const budget = answers.budget || "50-100";
@@ -314,14 +323,14 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
             !t.category.includes("coding") &&
             !t.category.includes("automation")
         );
-        const others = selectToolsWithinBudget(nonTechnical, remainingBudget, maxCount - 1, scenarios);
+        const others = selectToolsWithinBudget(nonTechnical, remainingBudget, maxCount - 1, scenarios, 1, isDeveloperWithCoding, maxDevCategoryCount);
         selected = [techTool, ...others];
       } else {
         // Fallback: just use budget-aware selection
-        selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios);
+        selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios, 1, isDeveloperWithCoding, maxDevCategoryCount);
       }
     } else {
-      selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios);
+      selected = selectToolsWithinBudget(scored, maxBudget, maxCount, scenarios, 1, isDeveloperWithCoding, maxDevCategoryCount);
     }
 
     const toolsWithReason = selected.map((tool) => ({
