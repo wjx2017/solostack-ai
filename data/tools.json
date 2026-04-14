@@ -236,7 +236,7 @@
         "freelance",
         "ecommerce"
       ],
-      "tier": "recommended"
+      "tier": "basic"
     },
     {
       "id": "supabase",
@@ -258,7 +258,7 @@
         "saas",
         "freelance"
       ],
-      "tier": "recommended"
+      "tier": "basic"
     },
     {
       "id": "github-copilot",
@@ -281,7 +281,7 @@
         "freelance",
         "ecommerce"
       ],
-      "tier": "recommended"
+      "tier": "basic"
     },
     {
       "id": "vercel",
@@ -304,7 +304,7 @@
         "freelance",
         "ecommerce"
       ],
-      "tier": "recommended"
+      "tier": "basic"
     },
     {
       "id": "replit",
@@ -326,7 +326,7 @@
         "freelance",
         "saas"
       ],
-      "tier": "recommended"
+      "tier": "basic"
     },
     {
       "id": "railway",
