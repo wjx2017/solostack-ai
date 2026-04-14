@@ -142,11 +142,11 @@ function validateRecommendations(
       failures.push('Technical user has no Growth/Recommended stack');
     } else {
       const hasTechnicalTools = recommendedTier.tools.some(tool =>
-        tool.category.includes('coding') || tool.category.includes('automation')
+        tool.category.includes('coding') || tool.category.includes('automation') || tool.category.includes('development')
       );
       if (!hasTechnicalTools) {
         failures.push(
-          `Technical user should be recommended technical tools (coding/automation), got: ${recommendedTier.tools.map(t => t.name).join(', ')}`
+          `Technical user should be recommended technical tools (coding/automation/development), got: ${recommendedTier.tools.map(t => t.name).join(', ')}`
         );
       }
       // P2: When coding scenario selected, expect >=2 dev tools in Growth Stack
