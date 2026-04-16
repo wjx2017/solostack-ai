@@ -3,8 +3,9 @@
     {
       "id": "jasper",
       "name": "Jasper AI",
+      "nameEn": "Jasper AI",
       "description": "AI writing assistant for marketing — blog posts, ad copy, social media content at scale",
-      "category": ["writing", "content"],
+      "category": ["writing"],
       "icon": "✍️",
       "pricing": {
         "monthly": 49,
@@ -13,29 +14,45 @@
       },
       "affiliateUrl": "https://www.jasper.ai/?utm_source=solostack.ai",
       "bestFor": ["content", "saas", "ecommerce"],
-      "tier": "recommended"
+      "tier": "recommended",
+      "websiteUrl": "https://www.jasper.ai/",
+      "priceMode": "tiered",
+      "tierInfo": "A 级",
+      "commissionRate": 30,
+      "packageInfo": "官网公开存在 Creator / Pro / Business 等分层，并提供 7-day free trial；官方帮助文档显示 Pro 年付口径约 $59/月，Business 为定制/按需。当前起步价记录仅作入门参考，后续可再细化 Creator 与 Pro 的差异。",
+      "remarks": "",
+      "lastVerified": "2026-04-16"
     },
     {
       "id": "grammarly",
       "name": "Grammarly",
+      "nameEn": "Grammarly",
       "description": "AI writing assistant — grammar, spelling, tone, and clarity checks for all your writing",
-      "category": ["writing", "productivity"],
-      "icon": "📝",
+      "category": ["writing"],
+      "icon": "✍️",
       "pricing": {
         "monthly": 12,
         "annual": 84,
         "freeTier": "Basic checks free"
       },
       "affiliateUrl": "https://www.grammarly.com/?utm_source=solostack.ai",
-      "bestFor": ["content", "saas", "freelance", "ecommerce"],
-      "tier": "basic"
+      "bestFor": ["content", "saas", "ecommerce", "freelance"],
+      "tier": "basic",
+      "websiteUrl": "https://www.grammarly.com/",
+      "priceMode": "tiered",
+      "tierInfo": "B 级",
+      "commissionRate": 25,
+      "packageInfo": "官网公开为多档结构：Free（$0/月）、Pro（$12/月，免费试用）、Enterprise（联系销售/定制）。当前起步价记录为最低付费档参考；免费层已单独记录。",
+      "remarks": "",
+      "lastVerified": "2026-04-16"
     },
     {
       "id": "notion-ai",
       "name": "Notion AI",
+      "nameEn": "Notion AI",
       "description": "All-in-one workspace with AI writing — notes, docs, and project management combined",
-      "category": ["writing", "productivity"],
-      "icon": "📋",
+      "category": ["writing"],
+      "icon": "✍️",
       "pricing": {
         "monthly": 10,
         "annual": 96,
@@ -43,14 +60,22 @@
       },
       "affiliateUrl": "https://notion.so/?utm_source=solostack.ai",
       "bestFor": ["content", "saas", "freelance"],
-      "tier": "basic"
+      "tier": "basic",
+      "websiteUrl": "https://notion.so/",
+      "priceMode": "tiered",
+      "tierInfo": "B 级",
+      "commissionRate": 50,
+      "packageInfo": "官网公开存在 Free、Plus、Business、Enterprise 等工作区分层，同时 Notion AI / Agent 能力可能按 credits 额外计费（如公开页面提到 free to try，后续按 credits 购买）。当前起步价仅作入门参考，后续应分清工作区套餐与 AI credits。",
+      "remarks": "",
+      "lastVerified": "2026-04-16"
     },
     {
       "id": "writesonic",
       "name": "Writesonic",
+      "nameEn": "Writesonic",
       "description": "AI writing tool — blog posts, product descriptions, ad copy with SEO optimization",
-      "category": ["writing", "seo"],
-      "icon": "🔥",
+      "category": ["writing"],
+      "icon": "✍️",
       "pricing": {
         "monthly": 19,
         "annual": 156,
@@ -58,13 +83,21 @@
       },
       "affiliateUrl": "https://writesonic.com/?utm_source=solostack.ai",
       "bestFor": ["content", "ecommerce", "freelance"],
-      "tier": "basic"
+      "tier": "basic",
+      "websiteUrl": "https://writesonic.com/",
+      "priceMode": "tiered",
+      "tierInfo": "B 级",
+      "commissionRate": 30,
+      "packageInfo": "官网公开存在 Lite、Standard、Professional、Advanced、Enterprise 等多档方案，并支持免费试用/按年付折扣。当前起步价仅作最低付费档参考；后续可补齐各档 prompts / SEO / agent 功能差异。",
+      "remarks": "",
+      "lastVerified": "2026-04-16"
     },
     {
       "id": "pictory",
       "name": "Pictory AI",
+      "nameEn": "Pictory AI",
       "description": "AI video creation — turn blog posts, scripts, and articles into engaging short videos",
-      "category": ["video", "content"],
+      "category": ["video"],
       "icon": "🎬",
       "pricing": {
         "monthly": 23,
@@ -73,14 +106,22 @@
       },
       "affiliateUrl": "https://pictory.ai/?utm_source=solostack.ai",
       "bestFor": ["content", "ecommerce"],
-      "tier": "recommended"
+      "tier": "recommended",
+      "websiteUrl": "https://pictory.ai/",
+      "priceMode": "tiered",
+      "tierInfo": "A 级",
+      "commissionRate": 30,
+      "packageInfo": "官网公开存在 Starter、Professional、Teams、Enterprise 四个付费层，并提供 14 天 Free Trial。帮助中心显示 Starter 可按月或年付，年付口径可折算到更低月费。当前起步价仅作最低付费档参考。",
+      "remarks": "",
+      "lastVerified": "2026-04-16"
     },
     {
       "id": "murf",
       "name": "Murf AI",
+      "nameEn": "Murf AI",
       "description": "AI voice generator — realistic text-to-speech with 120+ voices in 20+ languages",
-      "category": ["video", "content"],
-      "icon": "🎙️",
+      "category": ["video"],
+      "icon": "🎬",
       "pricing": {
         "monthly": 19,
         "annual": 156,
@@ -88,29 +129,45 @@
       },
       "affiliateUrl": "https://murf.ai/?utm_source=solostack.ai",
       "bestFor": ["content", "ecommerce"],
-      "tier": "basic"
+      "tier": "basic",
+      "websiteUrl": "https://murf.ai/",
+      "priceMode": "tiered",
+      "tierInfo": "B 级",
+      "commissionRate": 20,
+      "packageInfo": "官网公开为多档结构：Free、Creator、Business、Enterprise。公开搜索结果显示 Creator 起步约 $19/月（年付口径），Business 更高，Enterprise 为定制。当前起步价记录为最低付费档参考。",
+      "remarks": "",
+      "lastVerified": "2026-04-16"
     },
     {
       "id": "n8n",
       "name": "n8n",
+      "nameEn": "n8n",
       "description": "Workflow automation platform — connect 400+ apps with visual or code-based workflows",
-      "category": ["automation", "coding"],
-      "icon": "⚡",
+      "category": ["coding", "automation"],
+      "icon": "💻",
       "pricing": {
         "monthly": 24,
         "annual": 240,
         "freeTier": "Self-hosted free"
       },
       "affiliateUrl": "https://n8n.io/?utm_source=solostack.ai",
-      "bestFor": ["developer", "saas", "ecommerce", "freelance"],
-      "tier": "basic"
+      "bestFor": ["saas", "ecommerce", "freelance"],
+      "tier": "basic",
+      "websiteUrl": "https://n8n.io/",
+      "priceMode": "tiered",
+      "tierInfo": "B 级",
+      "commissionRate": 30,
+      "packageInfo": "官网公开为多档结构：Starter、Pro、Business、Enterprise；其中社区/自托管免费入口单独存在。当前起步价记录为最低付费档参考，后续可继续补充各档执行量/协作差异。",
+      "remarks": "",
+      "lastVerified": "2026-04-16"
     },
     {
       "id": "tubebuddy",
       "name": "TubeBuddy",
+      "nameEn": "TubeBuddy",
       "description": "YouTube growth toolkit — keyword research, A/B testing, bulk processing, and SEO optimization",
-      "category": ["social-media", "seo"],
-      "icon": "📺",
+      "category": ["productivity"],
+      "icon": "📋",
       "pricing": {
         "monthly": 9,
         "annual": 72,
@@ -118,14 +175,22 @@
       },
       "affiliateUrl": "https://www.tubebuddy.com/?utm_source=solostack.ai",
       "bestFor": ["content"],
-      "tier": "basic"
+      "tier": "basic",
+      "websiteUrl": "https://www.tubebuddy.com/",
+      "priceMode": "tiered",
+      "tierInfo": "B 级",
+      "commissionRate": 40,
+      "packageInfo": "官网公开为多档结构：Pro、Legend、Enterprise，并有 Free starter 层。当前起步价记录为最低付费档参考；官网强调创作者个人版与企业版适用对象不同。",
+      "remarks": "",
+      "lastVerified": "2026-04-16"
     },
     {
       "id": "surfer-seo",
       "name": "Surfer SEO",
+      "nameEn": "Surfer SEO",
       "description": "AI-powered SEO optimization — content editor, SERP analyzer, and keyword research",
-      "category": ["seo", "content"],
-      "icon": "📈",
+      "category": ["productivity"],
+      "icon": "📋",
       "pricing": {
         "monthly": 89,
         "annual": 708,
@@ -133,14 +198,22 @@
       },
       "affiliateUrl": "https://surferseo.com/?utm_source=solostack.ai",
       "bestFor": ["content", "saas"],
-      "tier": "recommended"
+      "tier": "recommended",
+      "websiteUrl": "https://surferseo.com/",
+      "priceMode": "single",
+      "tierInfo": "A 级",
+      "commissionRate": 30,
+      "packageInfo": "当前按单一价格维护：月费 89，年费 708；当前未见免费层。若后续发现有更多套餐档位，再补为多档价格。",
+      "remarks": "",
+      "lastVerified": "2026-04-16"
     },
     {
       "id": "elevenlabs",
       "name": "ElevenLabs",
+      "nameEn": "ElevenLabs",
       "description": "AI voice generation — multilingual, voice cloning, and podcast narration",
-      "category": ["video", "content"],
-      "icon": "🎙️",
+      "category": ["video"],
+      "icon": "🎬",
       "pricing": {
         "monthly": 22,
         "annual": 264,
@@ -148,97 +221,152 @@
       },
       "affiliateUrl": "https://elevenlabs.io/?utm_source=solostack.ai",
       "bestFor": ["content", "ecommerce"],
-      "tier": "recommended"
+      "tier": "recommended",
+      "websiteUrl": "https://elevenlabs.io/",
+      "priceMode": "tiered",
+      "tierInfo": "A 级",
+      "commissionRate": 22,
+      "packageInfo": "官网公开存在 Free、Starter、Creator、Pro、Scale、Business 等多档层级。公开文档还说明 Free 提供有限 voice slots，部分能力从 Starter 起开放。当前起步价仅作最低付费档参考，后续可按官网逐档补 credits / voice slots 差异。",
+      "remarks": "",
+      "lastVerified": "2026-04-16"
     },
     {
       "id": "cursor",
       "name": "Cursor",
-      "description": "AI-first code editor — write, edit, and discuss code with AI. Built on VS Code with deep AI integration",
-      "category": ["coding", "development"],
+      "nameEn": "Cursor",
+      "description": "AI-native code editor for full-project context coding, refactoring, and debugging.",
+      "category": ["coding", "automation"],
       "icon": "💻",
       "pricing": {
         "monthly": 20,
         "annual": 192,
-        "freeTier": "50 slow requests/month free"
+        "freeTier": "Hobby 免费版可用；Pro 约 $20/月。"
       },
-      "affiliateUrl": "https://www.cursor.com/?utm_source=solostack.ai",
+      "affiliateUrl": "",
       "bestFor": ["developer", "saas", "freelance"],
-      "tier": "basic"
-    },
-    {
-      "id": "github-copilot",
-      "name": "GitHub Copilot",
-      "description": "AI pair programmer — autocomplete, chat, and code explanations across 20+ IDEs",
-      "category": ["coding", "development"],
-      "icon": "🤖",
-      "pricing": {
-        "monthly": 10,
-        "annual": 100,
-        "freeTier": "Free for students & open source"
-      },
-      "affiliateUrl": "https://github.com/features/copilot?utm_source=solostack.ai",
-      "bestFor": ["developer", "saas"],
-      "tier": "basic"
+      "tier": "premium",
+      "websiteUrl": "https://cursor.com/",
+      "priceMode": "tiered",
+      "tierInfo": "S 级",
+      "commissionRate": "",
+      "packageInfo": "Hobby 免费；Pro 约 $20/月；Teams 约 $40/席位。适合独立开发者作为主力 AI IDE。",
+      "remarks": "首批优先补充的开发工具；适合 developer/coding 问卷主推荐。",
+      "lastVerified": "2026-04-12"
     },
     {
       "id": "supabase",
       "name": "Supabase",
-      "description": "Open-source Firebase alternative — PostgreSQL database, auth, storage, and edge functions",
-      "category": ["development", "coding"],
-      "icon": "🗄️",
+      "nameEn": "Supabase",
+      "description": "Open-source Firebase alternative with Postgres, auth, storage, and realtime for MVPs.",
+      "category": ["coding", "automation"],
+      "icon": "💻",
       "pricing": {
         "monthly": 25,
-        "annual": 250,
-        "freeTier": "500MB database, 1GB storage free"
+        "annual": 300,
+        "freeTier": "Free 版可用：500MB DB、50K MAU。"
       },
-      "affiliateUrl": "https://supabase.com/?utm_source=solostack.ai",
-      "bestFor": ["developer", "saas"],
-      "tier": "basic"
+      "affiliateUrl": "",
+      "bestFor": ["developer", "saas", "freelance"],
+      "tier": "premium",
+      "websiteUrl": "https://supabase.com/",
+      "priceMode": "tiered",
+      "tierInfo": "S 级",
+      "commissionRate": "",
+      "packageInfo": "Free 可做 MVP；Pro 约 $25/项目/月，超额按量计费。适合后端、Auth、数据库一体化搭建。",
+      "remarks": "适合 developer、SaaS、MVP 场景；应进入开发主推荐池。",
+      "lastVerified": "2026-04-12"
+    },
+    {
+      "id": "github-copilot",
+      "name": "GitHub Copilot",
+      "nameEn": "GitHub Copilot",
+      "description": "AI coding assistant integrated with GitHub, VS Code, and JetBrains for completion, chat, and review help.",
+      "category": ["coding", "automation"],
+      "icon": "💻",
+      "pricing": {
+        "monthly": 10,
+        "annual": 100,
+        "freeTier": "Free 版存在；Pro 约 $10/月。"
+      },
+      "affiliateUrl": "",
+      "bestFor": ["developer", "saas", "freelance"],
+      "tier": "premium",
+      "websiteUrl": "https://github.com/features/copilot",
+      "priceMode": "tiered",
+      "tierInfo": "S 级",
+      "commissionRate": "",
+      "packageInfo": "Free 提供有限高级请求；Pro 约 $10/月；Business/Enterprise 更高。开发者认知度高，适合标准推荐。",
+      "remarks": "高认知开发工具，适合 developer 问卷基础推荐位。",
+      "lastVerified": "2026-04-12"
     },
     {
       "id": "vercel",
       "name": "Vercel",
-      "description": "Frontend cloud platform — deploy Next.js, React, and full-stack apps with zero config",
-      "category": ["development", "web"],
-      "icon": "▲",
+      "nameEn": "Vercel",
+      "description": "Next.js 母公司，前端/Next.js 项目最佳部署平台，v0 AI 代码生成",
+      "category": ["coding", "automation"],
+      "icon": "💻",
       "pricing": {
         "monthly": 20,
-        "annual": 200,
-        "freeTier": "Hobby tier free for personal projects"
+        "annual": 0,
+        "freeTier": ""
       },
-      "affiliateUrl": "https://vercel.com/?utm_source=solostack.ai",
+      "affiliateUrl": "https://partners.dub.co/v0",
       "bestFor": ["developer", "saas"],
-      "tier": "basic"
-    },
-    {
-      "id": "linear",
-      "name": "Linear",
-      "description": "Streamlined issue tracking and project management — built for software teams who move fast",
-      "category": ["development", "productivity"],
-      "icon": "📋",
-      "pricing": {
-        "monthly": 10,
-        "annual": 96,
-        "freeTier": "500 issues free"
-      },
-      "affiliateUrl": "https://linear.app/?utm_source=solostack.ai",
-      "bestFor": ["developer", "saas"],
-      "tier": "basic"
+      "tier": "basic",
+      "websiteUrl": "",
+      "priceMode": "single",
+      "tierInfo": "",
+      "commissionRate": 30,
+      "packageInfo": "",
+      "remarks": "",
+      "lastVerified": ""
     },
     {
       "id": "railway",
       "name": "Railway",
-      "description": "Cloud hosting platform — deploy apps, databases, and services with automatic scaling",
-      "category": ["development", "coding"],
-      "icon": "🚂",
+      "nameEn": "Railway",
+      "description": "独立开发者社区热门的一键部署平台，支持 PostgreSQL/Redis 数据库托管",
+      "category": ["coding", "automation"],
+      "icon": "💻",
       "pricing": {
         "monthly": 5,
-        "annual": 50,
-        "freeTier": "$5 credit/month free"
+        "annual": 0,
+        "freeTier": ""
       },
-      "affiliateUrl": "https://railway.app/?utm_source=solostack.ai",
+      "affiliateUrl": "https://railway.com/affiliate-program",
       "bestFor": ["developer", "saas"],
-      "tier": "basic"
+      "tier": "basic",
+      "websiteUrl": "",
+      "priceMode": "custom",
+      "tierInfo": "",
+      "commissionRate": 15,
+      "packageInfo": "",
+      "remarks": "",
+      "lastVerified": ""
+    },
+    {
+      "id": "digitalocean",
+      "name": "DigitalOcean",
+      "nameEn": "DigitalOcean",
+      "description": "老牌云服务商，提供 VPS、Kubernetes、托管数据库、对象存储等服务",
+      "category": ["coding", "automation"],
+      "icon": "💻",
+      "pricing": {
+        "monthly": 4,
+        "annual": 0,
+        "freeTier": ""
+      },
+      "affiliateUrl": "https://www.digitalocean.com/affiliates",
+      "bestFor": ["developer", "saas"],
+      "tier": "basic",
+      "websiteUrl": "",
+      "priceMode": "custom",
+      "tierInfo": "",
+      "commissionRate": 10,
+      "packageInfo": "",
+      "remarks": "",
+      "lastVerified": ""
     }
   ]
 }

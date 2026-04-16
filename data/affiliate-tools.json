@@ -1,5 +1,5 @@
 {
-  "_comment": "Affiliate whitelist — only these tool IDs will appear in recommendations. Source: 飞书表格 https://my.feishu.cn/sheets/Qs3ysSlb5hX4aNtuPCIcJPdjnwb",
+  "_comment": "Affiliate whitelist — source: 飞书多维表格",
   "affiliateToolIds": [
     "jasper",
     "grammarly",
@@ -11,11 +11,8 @@
     "tubebuddy",
     "surfer-seo",
     "elevenlabs",
-    "cursor",
-    "github-copilot",
-    "supabase",
     "vercel",
-    "linear",
-    "railway"
+    "railway",
+    "digitalocean"
   ]
 }
