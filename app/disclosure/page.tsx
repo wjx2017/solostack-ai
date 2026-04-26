@@ -20,6 +20,9 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/disclosure`,
     type: "website",
   },
+  alternates: {
+    canonical: `${SITE_URL}/disclosure`,
+  },
 };
 
 // JSON-LD for Disclosure page

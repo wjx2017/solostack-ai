@@ -70,9 +70,7 @@ export const metadata: Metadata = {
     creator: "@solostackai",
     images: [`${SITE_URL}/og-image.png`],
   },
-  alternates: {
-    canonical: SITE_URL,
-  },
+  // canonical is set per-page via alternates in each page's metadata
   verification: {
     // google: "your-google-verification-code",
     // bing: "your-bing-verification-code",

@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import { CTAButton } from "@/components/shared/CTAButton";
 import Script from "next/script";
 
 const SITE_URL = "https://solostack.ai";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: SITE_URL,
+  },
+};
 
 // JSON-LD Schema.org structured data for GEO optimization
 const softwareApplicationSchema = {

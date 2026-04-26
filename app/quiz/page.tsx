@@ -19,6 +19,9 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: {
+    canonical: `${SITE_URL}/quiz`,
+  },
   openGraph: {
     title: "Find Your AI Stack — 5-Minute Quiz",
     description: "Get personalized AI tool recommendations in just 5 minutes",

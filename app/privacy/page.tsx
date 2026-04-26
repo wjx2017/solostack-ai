@@ -21,6 +21,9 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/privacy`,
     type: "website",
   },
+  alternates: {
+    canonical: `${SITE_URL}/privacy`,
+  },
 };
 
 // JSON-LD for Privacy Policy page
