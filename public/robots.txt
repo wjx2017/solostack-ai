@@ -10,7 +10,7 @@ Disallow: /_next/
 Disallow: /static/
 
 # Allow all crawlers to access sitemap
-Sitemap: https://solostack.ai/sitemap.xml
+Sitemap: https://solostack.pro/sitemap.xml
 
 # Crawl-delay for polite crawling
 Crawl-delay: 1

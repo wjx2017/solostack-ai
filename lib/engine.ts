@@ -379,7 +379,7 @@ export function generateRecommendations(answers: Partial<Answer>): StackTier[] {
 
   // Filter out empty stacks: when budget is too tight and no tools were selected,
   // the stack would display "$0/mo" with no tools — a broken user experience.
-  let result = stacks.filter((s) => s.tools.length > 0 && s.monthlyTotal > 0);
+  let result: StackTier[] = stacks.filter((s) => s.tools.length > 0 && s.monthlyTotal > 0);
 
   // Enforce price monotonicity: Pro >= Growth >= Starter
   result = enforcePriceMonotonicity(result, scored, isDeveloperWithCoding, proMaxDevCategoryCount, proMaxPerScenarioCat);

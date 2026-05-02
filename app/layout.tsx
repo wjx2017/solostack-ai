@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Script from "next/script";
-// import PlausibleProvider from "next-plausible"; // Temporarily disabled for build
 import "./globals.css";
 import { Header } from "@/components/shared/Header";
 import { Footer } from "@/components/shared/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const SITE_URL = "https://solostack.ai";
+const SITE_URL = "https://solostack.pro";
 const SITE_NAME = "Solostack AI";
 
 export const metadata: Metadata = {
@@ -103,13 +102,11 @@ export default function RootLayout({
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "877f68e341fc4b35ad6b2c25cb799f28"}'
         />
-        {/* <PlausibleProvider domain="solostack.ai"> */}
-          <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col">
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
           </div>
-        {/* </PlausibleProvider> */}
       </body>
     </html>
   );
